@@ -1,6 +1,7 @@
 import os
 import sys
 from config.env_config import setup_env
+from src.extract.extract import extract_main
 
 
 def main():
@@ -10,6 +11,7 @@ def main():
         f"ETL pipeline run successfully in "
         f"{os.getenv('ENV', 'error')} environment!"
     )
+    extract_main()
 
 
 if __name__ == "__main__":
