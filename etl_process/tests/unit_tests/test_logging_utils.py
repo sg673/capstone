@@ -40,7 +40,9 @@ def test_create_handlers_returns_both_handlers():
         assert isinstance(file_handler, logging.FileHandler)
         assert isinstance(console_handler, logging.StreamHandler)
         assert file_handler.level == logging.INFO
+        file_handler.close()
         assert console_handler.level == logging.INFO
+        console_handler.close()
 
 
 @patch("src.utils.logging_utils.logging.getLogger")
