@@ -1,5 +1,9 @@
 from src.utils.get_data import get_raw_file
 import pandas as pd
+from src.utils.logging_utils import setup_logger
+import logging
+
+logger = setup_logger(__name__, "extract_data.log", level=logging.DEBUG)
 
 
 def extract_airport_locations() -> pd.DataFrame:
@@ -34,6 +38,10 @@ def extract_airport_locations() -> pd.DataFrame:
     # Validate schema
     missing_columns = set(EXPECTED_SCHEMA) - set(airports_df.columns)
     if missing_columns:
+        logger.setLevel(logging.ERROR)
+        logger.error(
+            f"Missing expected columns in airports: {missing_columns}"
+        )
         raise KeyError(f"Missing expected columns: {missing_columns}")
 
     # Filter American airports
@@ -47,6 +55,18 @@ def extract_airport_locations() -> pd.DataFrame:
     # Replace all \N with None so pandas recognises them as nulls
     us_airports_df = us_airports_df.replace('\\N', None)
 
+    # Verify integrity
+    if (us_airports_df.empty):
+        logger.setLevel(logging.ERROR)
+        logger.error("No airport data extracted, ensure data exists")
+        raise ValueError("No data extracted, ensure data exists")
+    cols = len(us_airports_df.columns)
+    if (cols != 7):
+        logger.setLevel(logging.ERROR)
+        logger.error(f"Incorrect number of columns, should be 7 found {cols}")
+        raise ValueError(
+            f"Incorrect number of columns, should be 7 found {cols}"
+        )
     return us_airports_df
 
 
