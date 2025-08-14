@@ -24,11 +24,23 @@ def extract_airport_locations() -> pd.DataFrame:
             FileNotFoundError: If the 'airports.csv' file does not exist.
             KeyError: If expected columns are missing from the CSV file.
     """
+    EXPECTED_SCHEMA = ["id", "name", "city",
+                       "country", "iata", "icao",
+                       "lat", "lon", "alt", "tz",
+                       "dst", "timezone", "type", "source"]
 
     airports_df = get_raw_file("airports.csv")
+
+    # Validate schema
+    missing_columns = set(EXPECTED_SCHEMA) - set(airports_df.columns)
+    if missing_columns:
+        raise KeyError(f"Missing expected columns: {missing_columns}")
+
     # Filter American airports
     us_airports_df = (airports_df[airports_df['country'] == 'United States']
                       .sort_values(by="iata"))
+
+    # Remove Uncessesary columns
     us_airports_df = us_airports_df[['id', 'name', 'city', 'iata', 'lat',
                                      'lon', 'alt']]
 
