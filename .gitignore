@@ -160,4 +160,4 @@ config/config.yaml
 
 # System Files
 .DS_Store
-notebooks/gitignore/*
+etl_process/notebooks/gitignore/*
