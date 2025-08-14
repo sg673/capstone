@@ -1,5 +1,6 @@
 from pathlib import Path
 import logging
+from typing import Tuple
 
 
 def _ensure_log_directory(base_path=None):
@@ -50,7 +51,14 @@ def setup_logger(name, log_file, level=logging.DEBUG, base_path=None):
 
 
 # Function stolen from eds code
-def log_extract_success(logger, type, shape, execution_time, expected_rate):
+
+def log_extract_success(
+    logger: logging.Logger,
+    type: str,
+    shape: Tuple[int, int],
+    execution_time: float,
+    expected_rate: float
+) -> None:
     logger.setLevel(logging.INFO)
     logger.info(f"Data extraction successful for {type}!")
     logger.info(f"Extracted {shape[0]} rows " f"and {shape[1]} columns")
