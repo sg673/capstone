@@ -99,8 +99,8 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-# .env      # Should not be committed left for demo
-# .env.*    # Should not be committed left for demo
+.env
+.env.*
 .venv
 venv/
 ENV/
@@ -141,9 +141,9 @@ cython_debug/
 .vscode/
 
 # Data files
-# data/raw/
-# etl/data/processed/
-# data/output/
+etl_process/data/raw/
+etl_process/data/processed/
+etl_process/data/output/
 
 # Logs
 logs/
