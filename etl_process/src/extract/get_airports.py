@@ -4,13 +4,15 @@ import pandas as pd
 
 def extract_airport_locations() -> pd.DataFrame:
     """
-        Extracts and processes airport location data for US airports from a CSV file.
-        This function reads the 'airports.csv' file using the `get_raw_file` utility,
-        filters the data to include only airports located in the United States,
-        sorts the results by the IATA code, selects relevant columns, and replaces
-        any occurrences of the string '\\N' with None to standardize missing values.
+        Extracts and processes airport location data for US airports from a
+        CSV file. This function reads the 'airports.csv' file using the
+        `get_raw_file` utility, filters the data to include only airports
+        located in the United States, sorts the results by the IATA code,
+        selects relevant columns, and replaces any occurrences of the string
+        '\\N' with None to standardize missing values.
         Returns:
-            pd.DataFrame: A DataFrame containing the following columns for US airports:
+            pd.DataFrame: A DataFrame containing the following columns for
+            US airports:
                 - id: Airport identifier
                 - name: Name of the airport
                 - city: City where the airport is located
@@ -25,9 +27,11 @@ def extract_airport_locations() -> pd.DataFrame:
 
     airports_df = get_raw_file("airports.csv")
     # Filter American airports
-    us_airports_df = (airports_df[airports_df['country'] == 'United States'].sort_values(by="iata"))
-    us_airports_df = us_airports_df[['id', 'name', 'city','iata','lat','lon','alt']]
-    
+    us_airports_df = (airports_df[airports_df['country'] == 'United States']
+                      .sort_values(by="iata"))
+    us_airports_df = us_airports_df[['id', 'name', 'city', 'iata', 'lat',
+                                     'lon', 'alt']]
+
     # Replace all \N with None so pandas recognises them as nulls
     us_airports_df = us_airports_df.replace('\\N', None)
 
