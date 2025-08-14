@@ -4,6 +4,7 @@ from unittest.mock import patch, MagicMock
 from src.extract.get_airports import extract_airport_locations
 
 
+# All mock data is AI generated
 class TestExtractAirportLocations:
 
     @patch('src.extract.get_airports.get_raw_file')
