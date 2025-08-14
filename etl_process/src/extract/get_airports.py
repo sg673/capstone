@@ -60,13 +60,6 @@ def extract_airport_locations() -> pd.DataFrame:
         logger.setLevel(logging.ERROR)
         logger.error("No airport data extracted, ensure data exists")
         raise ValueError("No data extracted, ensure data exists")
-    cols = len(us_airports_df.columns)
-    if (cols != 7):
-        logger.setLevel(logging.ERROR)
-        logger.error(f"Incorrect number of columns, should be 7 found {cols}")
-        raise ValueError(
-            f"Incorrect number of columns, should be 7 found {cols}"
-        )
     return us_airports_df
 
 
