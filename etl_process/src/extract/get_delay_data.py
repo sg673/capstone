@@ -14,8 +14,17 @@ def extract_delay_data() -> pd.DataFrame:
             pd.DataFrame: DataFrame with airline delay information including:
                 - year, month: Time period
                 - carrier, carrier_name: Airline information
-                - airport IATA, airport_name: Airport information
-                - Various delay metrics and counts
+                - airport: the airports IATA code
+                - airport_name: name of the airport
+                - arr_flights: total flights landed
+                - arr_del15: total flights with more than 15 minutes delay
+                - carrier_ct, weather_ct, nas_ct, security_ct,
+                  late_aircraft_ct, arr_cancelled, arr_delay: the count of the
+                  reasons why a flight was delayed. Partial credit is applied
+                  if a delay was a result of multiple factors
+                - carrier_delay, weather_delay, nas_delay, security_delay,
+                  late_aircraft_delay: the delay time (in minutes) for each
+                  delay type
 
         Raises:
             FileNotFoundError: If the delay data file doesn't exist
