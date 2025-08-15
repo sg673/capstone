@@ -7,6 +7,7 @@ from src.utils.logging_utils import (
     _ensure_log_directory,
     _create_formatter,
     _create_handlers,
+    log_extract_success,
     setup_logger,
 )
 
@@ -67,3 +68,35 @@ def test_setup_logger_skips_handlers_if_already_exist(mock_get_logger):
     setup_logger("test", "test.log")
 
     mock_logger.addHandler.assert_not_called()
+
+
+#Stolen from ed
+def test_log_extract_success_within_expected_rate():
+    mock_logger = MagicMock()
+
+    log_extract_success(mock_logger, "test_data", (1000, 5), 1.0, 0.002)
+
+    mock_logger.setLevel.assert_called_with(logging.INFO)
+    assert mock_logger.info.call_count == 4
+    mock_logger.info.assert_any_call(
+        "Data extraction successful for test_data!"
+    )
+    mock_logger.info.assert_any_call("Extracted 1000 rows and 5 columns")
+    mock_logger.info.assert_any_call("Execution time: 1.0 seconds")
+    mock_logger.info.assert_any_call("Execution time per row: 0.001 seconds")
+    mock_logger.warning.assert_not_called()
+
+
+#Stolen from ed
+def test_log_extract_success_exceeds_expected_rate():
+    mock_logger = MagicMock()
+
+    log_extract_success(mock_logger, "slow_data", (100, 3), 5.0, 0.01)
+
+    assert mock_logger.setLevel.call_count == 2
+    mock_logger.setLevel.assert_any_call(logging.INFO)
+    mock_logger.setLevel.assert_any_call(logging.WARNING)
+    assert mock_logger.info.call_count == 3
+    mock_logger.warning.assert_called_once_with(
+        "Execution time per row exceeds 0.01: 0.05 seconds"
+    )
