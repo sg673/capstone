@@ -35,9 +35,15 @@ def clean_delay_data(data: pd.DataFrame) -> pd.DataFrame:
                         'carrier_name',
                         'airport',
                         'airport_name']
+    rows_before_drop = len(clean_data)
     clean_data = clean_data.dropna(subset=CRITICAL_COLUMNS)
+    rows_dropped = rows_before_drop - len(clean_data)
+
+    rows_before_fill = len(clean_data)
     clean_data = clean_data.fillna(0)
-    logger.info("Null values handled")
+    rows_modified = rows_before_fill - len(clean_data)
+    logger.info(f"Dropped {rows_dropped} rows with critical nulls, filled "
+                f"nulls in {rows_modified} rows")
 
     # arrays are AI generated
     str_cols = ['carrier',
