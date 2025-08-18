@@ -138,12 +138,12 @@ class TestTransformerDelayData:
     def delay_data(self):
         """Sample delay DataFrame for testing"""
         return pd.DataFrame({
-            'Year': [2023, 2023, 2023, 2023],
-            'Month': [1, 2, 1, 3],
-            'Carrier': ['AA', 'BB', 'AA', None],
-            'Carrier Name': ['American', 'Blue', 'American', 'Unknown'],
-            'Airport': ['JFK', 'LAX', 'JFK', 'ORD'],
-            'Airport Name': ['JFK Airport', 'LAX Airport',
+            'year': [2023, 2023, 2023, 2023],
+            'month': [1, 2, 1, 3],
+            'carrier': ['AA', 'BB', 'AA', None],
+            'carrier_name': ['American', 'Blue', 'American', 'Unknown'],
+            'airport': ['JFK', 'LAX', 'JFK', 'ORD'],
+            'airport_name': ['JFK Airport', 'LAX Airport',
                              'JFK Airport', None],
             'Arr Flights': [100, 200, 100, 150],
             'Carrier CT': [1.5, 2.0, 1.5, None]
