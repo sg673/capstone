@@ -1,6 +1,7 @@
 import pandas as pd
 from src.utils.logging_utils import setup_logger
 import logging
+from typing import Any
 
 logger = setup_logger(__name__, "extract_data.log", level=logging.DEBUG)
 
@@ -25,9 +26,9 @@ class Transformer:
     def clean(self):
         self.remove_duplicates()
         self.format_columns()
-        self.handle_nulls()
         self.format_data_types()
-        pass
+        self.handle_nulls()
+        return self.clean_data
 
     def remove_duplicates(self):
         duplicated_rows = self.data.duplicated()
@@ -47,7 +48,15 @@ class Transformer:
 
         rows_with_nulls = self.clean_data.isna().any(axis=1).sum()
         nulls_before_fill = self.clean_data.isna().sum().sum()
-        self.clean_data = self.clean_data.fillna(0)
+
+        str_cols = self.col_types["str_cols"]
+        int_cols = self.col_types["int_cols"]
+        float_cols = self.col_types["float_cols"]
+
+        self.clean_data[str_cols] = self.clean_data[str_cols].fillna("N/A")
+        self.clean_data[int_cols] = self.clean_data[int_cols].fillna(0)
+        self.clean_data[float_cols] = self.clean_data[float_cols].fillna(0)
+
         nulls_after_fill = self.clean_data.isna().sum().sum()
 
         if nulls_after_fill == 0:
@@ -58,7 +67,7 @@ class Transformer:
             logger.warning(f"could not handle {nulls_after_fill} nulls")
 
     def format_data_types(self):
-        type_mapping = {
+        type_mapping: dict[str, Any] = {
             "str_cols": "string",
             "int_cols": "int64",
             "float_cols": "float64"
