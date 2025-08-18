@@ -2,7 +2,7 @@ from pathlib import Path
 import pandas as pd
 
 
-def main(location: str, fileName: str, data: pd.DataFrame) -> bool:
+def post(location: str, fileName: str, data: pd.DataFrame) -> bool:
     """
         Save a pandas DataFrame to a CSV file in the specified location.
 

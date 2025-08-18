@@ -18,9 +18,20 @@ def main():
         f"ETL pipeline started successfully in "
         f"{os.getenv('ENV', 'error')} environment!"
     )
+    post_data = None
+
+    # Determines wether or not to save each step to a file
+    try:
+        post_data = os.getenv("POST_DATA", False)
+        if post_data == "True":
+            post_data = True
+        else:
+            post_data = False
+    except KeyError:
+        post_data = False
 
     logger.info("Started Extraction Phase")
-    extracted_data = extract_main()
+    extracted_data = extract_main(post_data)
     logger.info("Extraction Phase Completed")
 
 
