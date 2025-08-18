@@ -57,8 +57,8 @@ class Transformer:
         """
         self.remove_duplicates()
         self.format_columns()
-        self.format_data_types()
         self.handle_nulls()
+        self.format_data_types()
         return self.clean_data
 
     def remove_duplicates(self):
