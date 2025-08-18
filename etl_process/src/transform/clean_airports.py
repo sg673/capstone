@@ -19,9 +19,8 @@ def clean_airport_data(data: pd.DataFrame) -> pd.DataFrame:
     """
 
     duplicated_rows = data.duplicated()
-    logger.info(f"Detected {duplicated_rows.sum()} duplicate rows")
     clean_data = data[~duplicated_rows]
-    logger.info("Duplicates removed successfully")
+    logger.info(f"Removed {duplicated_rows.sum()} duplicate rows")
 
     clean_data.columns = clean_data \
         .columns \
@@ -35,12 +34,16 @@ def clean_airport_data(data: pd.DataFrame) -> pd.DataFrame:
     clean_data = clean_data.dropna(subset=CRITICAL_COLUMNS)
     rows_dropped = rows_before_drop - len(clean_data)
 
-    rows_before_fill = len(clean_data)
+    rows_with_nulls = clean_data.isna().any(axis=1).sum()
+    nulls_before_fill = clean_data.isna().sum().sum()
     clean_data['city'] = clean_data['city'].fillna("No City Provided")
     clean_data = clean_data.fillna(0)
-    rows_modified = rows_before_fill - len(clean_data)
-    logger.info(f"Dropped {rows_dropped} rows with critical nulls, filled "
-                f"nulls in {rows_modified} rows")
+    nulls_after_fill = clean_data.isna().sum().sum()
+    if nulls_after_fill == 0:
+        logger.info(f"Dropped {rows_dropped} rows with critical nulls, filled "
+                    f"{nulls_before_fill} nulls in {rows_with_nulls} rows")
+    else:
+        logger.warning(f"could not handle {nulls_after_fill} nulls")
 
     # arrays are AI generated
     str_cols = ['name',
