@@ -144,6 +144,7 @@ cython_debug/
 etl_process/data/raw/
 etl_process/data/processed/
 etl_process/data/output/
+etl_process/data/test/
 
 # Logs
 logs/

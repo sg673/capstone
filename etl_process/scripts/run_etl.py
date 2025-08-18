@@ -2,6 +2,7 @@ import os
 import sys
 from config.env_config import setup_env
 from src.extract.extract import extract_main
+from src.transform.transform import transform_main
 from src.utils.logging_utils import setup_logger
 
 # Use LOG_BASE_PATH if set (for testing), otherwise use default
@@ -33,6 +34,10 @@ def main():
     logger.info("Started Extraction Phase")
     extracted_data = extract_main(post_data)
     logger.info("Extraction Phase Completed")
+
+    logger.info("Started Transform Phase")
+    transformed_data = transform_main(extracted_data)
+    logger.info("Transform Completed Successfully")
 
 
 if __name__ == "__main__":
