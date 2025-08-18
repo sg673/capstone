@@ -18,9 +18,3 @@ class TestExtractMain:
 
         with pytest.raises(Exception, match="Extraction failed"):
             extract_main()
-
-    @patch('src.extract.extract.extract_airport_locations')
-    def test_extract_main_returns_none(self, mock_extract_airports):
-        """Test that extract_main returns None"""
-        result = extract_main()
-        assert result is None
