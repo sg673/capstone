@@ -13,6 +13,11 @@ def clean_delay_data(data: pd.DataFrame) -> pd.DataFrame:
     logger.info(f"Detected {duplicated_rows.sum()} duplicate rows")
     clean_data = data[~duplicated_rows]
 
+    clean_data.columns = clean_data \
+        .columns \
+        .str.lower() \
+        .str.replace(" ", "_")
+
     CRITICAL_COLUMNS = ['year',
                         'month',
                         'carrier',
@@ -22,5 +27,5 @@ def clean_delay_data(data: pd.DataFrame) -> pd.DataFrame:
     clean_data = clean_data.dropna(subset=CRITICAL_COLUMNS)
     clean_data = clean_data.fillna(0)
 
-    
+
     return clean_data
