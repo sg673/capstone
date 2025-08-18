@@ -7,6 +7,14 @@ logger = setup_logger(__name__, "extract_data.log", level=logging.DEBUG)
 
 def clean_delay_data(data: pd.DataFrame) -> pd.DataFrame:
     """
+        Clean and preprocess delay data by removing duplicates, handling nulls,
+        and converting data types.
+
+        Args:
+            data (pd.DataFrame): Raw delay data
+
+        Returns:
+            pd.DataFrame: Cleaned delay data with proper data types
     """
 
     duplicated_rows = data.duplicated()
