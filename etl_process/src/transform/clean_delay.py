@@ -12,11 +12,14 @@ def clean_delay_data(data: pd.DataFrame) -> pd.DataFrame:
     duplicated_rows = data.duplicated()
     logger.info(f"Detected {duplicated_rows.sum()} duplicate rows")
     clean_data = data[~duplicated_rows]
+    logger.info("Duplicates removed successfully")
 
     clean_data.columns = clean_data \
         .columns \
         .str.lower() \
         .str.replace(" ", "_")
+
+    logger.info("Column names formatted")
 
     CRITICAL_COLUMNS = ['year',
                         'month',
@@ -26,6 +29,7 @@ def clean_delay_data(data: pd.DataFrame) -> pd.DataFrame:
                         'airport_name']
     clean_data = clean_data.dropna(subset=CRITICAL_COLUMNS)
     clean_data = clean_data.fillna(0)
+    logger.info("Null values handled")
 
     # arrays are AI generated
     str_cols = ['carrier',
@@ -52,5 +56,6 @@ def clean_delay_data(data: pd.DataFrame) -> pd.DataFrame:
     clean_data[str_cols] = clean_data[str_cols].astype("string")
     clean_data[int_cols] = clean_data[int_cols].astype("int64")
     clean_data[float_cols] = clean_data[float_cols].astype("float64")
+    logger.info("columns converted to correct datatypes")
 
     return clean_data
