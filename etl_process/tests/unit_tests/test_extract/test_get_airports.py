@@ -27,11 +27,11 @@ class TestExtractAirportLocations:
             'source': ['OurAirports', 'OurAirports', 'OurAirports']
         })
         mock_get_raw_file.return_value = mock_data
-        
+
         result = extract_airport_locations()
-        
+
         assert len(result) == 2
-        assert list(result.columns) == ['id', 'name', 'city', 'iata', 'lat', 'lon', 'alt']
+        assert list(result.columns) == ['name', 'city', 'iata', 'lat', 'lon', 'alt']
         assert all(result['iata'].isin(['AAA', 'BBB']))
 
     @patch('src.extract.get_airports.get_raw_file')
@@ -39,7 +39,7 @@ class TestExtractAirportLocations:
         """Test that missing columns raise KeyError"""
         mock_data = pd.DataFrame({'id': [1], 'name': ['Airport']})
         mock_get_raw_file.return_value = mock_data
-        
+
         with pytest.raises(KeyError, match="Missing expected columns"):
             extract_airport_locations()
 
@@ -53,7 +53,7 @@ class TestExtractAirportLocations:
             'type': ['airport'], 'source': ['OurAirports']
         })
         mock_get_raw_file.return_value = mock_data
-        
+
         with pytest.raises(ValueError, match="No data extracted"):
             extract_airport_locations()
 
@@ -67,8 +67,8 @@ class TestExtractAirportLocations:
             'type': ['airport'], 'source': ['OurAirports']
         })
         mock_get_raw_file.return_value = mock_data
-        
+
         result = extract_airport_locations()
-        
+
         assert result['city'].isna().iloc[0]
         assert result['alt'].isna().iloc[0]
