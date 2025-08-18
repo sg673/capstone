@@ -7,7 +7,17 @@ logger = setup_logger(__name__, "extract_data.log", level=logging.DEBUG)
 
 def clean_airport_data(data: pd.DataFrame) -> pd.DataFrame:
     """
+        Clean and preprocess airport data by removing duplicates,
+        handling nulls,
+        and converting data types.
+
+        Args:
+            data (pd.DataFrame): Raw airport data
+
+        Returns:
+            pd.DataFrame: Cleaned airport data with proper data types
     """
+
     duplicated_rows = data.duplicated()
     logger.info(f"Detected {duplicated_rows.sum()} duplicate rows")
     clean_data = data[~duplicated_rows]
