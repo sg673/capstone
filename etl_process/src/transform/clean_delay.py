@@ -18,9 +18,8 @@ def clean_delay_data(data: pd.DataFrame) -> pd.DataFrame:
     """
 
     duplicated_rows = data.duplicated()
-    logger.info(f"Detected {duplicated_rows.sum()} duplicate rows")
     clean_data = data[~duplicated_rows]
-    logger.info("Duplicates removed successfully")
+    logger.info(f"Removed {duplicated_rows.sum()} duplicate rows")
 
     clean_data.columns = clean_data \
         .columns \
