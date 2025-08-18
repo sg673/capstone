@@ -9,6 +9,15 @@ class Transformer:
     def __init__(self, data: pd.DataFrame,
                  crit_cols: "list[str]",
                  col_types: "dict[str,list[str]]"):
+        missing_cols = [col for col in crit_cols if col not in data.columns]
+        if missing_cols:
+            raise ValueError(f"Critical columns not found in data: "
+                             f"{missing_cols}")
+        required_keys = {"str_cols", "int_cols", "float_cols"}
+        missing_keys = required_keys - set(col_types.keys())
+        if missing_keys:
+            raise ValueError(f"Missing required keys in col_types: "
+                             f"{missing_keys}")
         self.data = data
         self.crit_cols = crit_cols
         self.col_types = col_types
