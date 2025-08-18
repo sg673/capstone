@@ -74,7 +74,7 @@ def transform_main(data: "tuple[pd.DataFrame,pd.DataFrame]",
                 f"Delays: {clean_delay.shape}")
 
     if write_to_file:
-        post("output", "extract_airports.csv", clean_airport)
-        post("output", "extract_delay.csv", clean_delay)
+        post("output", "clean_airports.csv", clean_airport)
+        post("output", "clean_delay.csv", clean_delay)
 
     return (clean_airport, clean_delay)
