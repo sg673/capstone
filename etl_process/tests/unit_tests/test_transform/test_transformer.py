@@ -60,3 +60,73 @@ class TestTransformer:
                 {'str_cols': []}
             )
 
+    def test_remove_duplicates(self, sample_data, airport_config):
+        """Test duplicate removal"""
+        transformer = Transformer(
+            sample_data,
+            airport_config['crit_cols'],
+            airport_config['col_types']
+        )
+        transformer.remove_duplicates()
+        assert len(transformer.clean_data) == 3
+        assert not transformer.clean_data.duplicated().any()
+
+    def test_drop_critical_nulls(self, airport_config):
+        """Test rows with critical nulls are dropped"""
+        data_with_nulls = pd.DataFrame({
+            'name': ['Airport A', None, 'Airport C'],
+            'iata': ['AAA', 'BBB', None],
+            'city': ['City A', 'City B', 'City C'],
+            'lat': [40.1, 41.2, 42.3],
+            'lon': [-74.1, -75.2, -76.3],
+            'alt': [100, 200, 300]
+        })
+        transformer = Transformer(
+            data_with_nulls,
+            airport_config['crit_cols'],
+            airport_config['col_types']
+        )
+        transformer.clean_data = data_with_nulls.copy()
+        transformer.handle_nulls()
+        assert len(transformer.clean_data) == 1
+        assert transformer.clean_data.iloc[0]['name'] == 'Airport A'
+
+    def test_nulls_filled(self, airport_config):
+        """Test that non-critical nullsa are filled"""
+        data_with_nulls = pd.DataFrame({
+            'name': ['Airport A', 'Airport B'],
+            'iata': ['AAA', 'BBB'],
+            'city': [None, 'City B'],
+            'lat': [40.1, None],
+            'lon': [-74.1, -75.2],
+            'alt': [100, 200]
+        })
+        transformer = Transformer(
+            data_with_nulls,
+            airport_config['crit_cols'],
+            airport_config['col_types']
+        )
+        transformer.clean_data = data_with_nulls.copy()
+        transformer.handle_nulls()
+        assert transformer.clean_data.iloc[0]['city'] == 'N/A'
+        assert transformer.clean_data.iloc[1]['lat'] == 0
+        assert not transformer.clean_data.isna().any().any()
+
+    def test_format_data_types(self, sample_data, airport_config):
+        """Tes data type conversion"""
+        transformer = Transformer(
+            sample_data,
+            airport_config['crit_cols'],
+            airport_config['col_types']
+        )
+        transformer.clean_data = sample_data.copy()
+        transformer.clean_data.columns = ['name', 'iata',
+                                          'city', 'lat',
+                                          'lon', 'alt']
+        transformer.format_data_types()
+        assert transformer.clean_data['name'].dtype == 'string'
+        assert transformer.clean_data['iata'].dtype == 'string'
+        assert transformer.clean_data['city'].dtype == 'string'
+        assert transformer.clean_data['lat'].dtype == 'float64'
+        assert transformer.clean_data['lon'].dtype == 'float64'
+        assert transformer.clean_data['alt'].dtype == 'float64'
