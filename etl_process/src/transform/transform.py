@@ -1,5 +1,6 @@
 import pandas as pd
 
+from src.transform.merge import merge_main
 from src.transform.transformer import Transformer
 from src.utils.post_data import post
 from src.utils.logging_utils import setup_logger
@@ -39,7 +40,7 @@ DELAY_CONFIG = {
 
 
 def transform_main(data: "tuple[pd.DataFrame,pd.DataFrame]",
-                   write_to_file=False) -> "tuple[pd.DataFrame,pd.DataFrame]":
+                   write_to_file=False) -> pd.DataFrame:
     """
         Transform raw airport and delay data by cleaning and preprocessing
         both datasets.
@@ -52,8 +53,7 @@ def transform_main(data: "tuple[pd.DataFrame,pd.DataFrame]",
             CSV files. Defaults to False.
 
         Returns:
-            tuple[pd.DataFrame, pd.DataFrame]: Tuple containing cleaned
-            airport and delay data
+            pd.DataFrame: Cleaned and merged data
     """
 
     airport_cleaner = Transformer(data[0],
@@ -73,8 +73,14 @@ def transform_main(data: "tuple[pd.DataFrame,pd.DataFrame]",
                 f"Airports: {clean_airport.shape},"
                 f"Delays: {clean_delay.shape}")
 
+    logger.info("starting merge")
+    merged_data = merge_main(clean_airport, clean_delay)
+    logger.info(f"Completed merge - "
+                f"Merged Data: {merged_data.shape}")
+
     if write_to_file:
         post("output", "clean_airports.csv", clean_airport)
         post("output", "clean_delay.csv", clean_delay)
+        post("output", "merged_data.csv", merged_data)
 
-    return (clean_airport, clean_delay)
+    return merged_data

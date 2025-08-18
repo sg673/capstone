@@ -13,9 +13,7 @@ def merge_main(airport_df: pd.DataFrame,
     merged_df['state'] = merged_df['airport_name'] \
         .str.split(', ') \
         .str[1].str.split(':').str[0]
-    merged_df = merged_df.drop(['Unnamed: 0_x',
-                                'arr_del15',
-                                'Unnamed: 0_y',
+    merged_df = merged_df.drop(['arr_del15',
                                 'airport_name',
                                 'airport'], axis=1)
     return merged_df
