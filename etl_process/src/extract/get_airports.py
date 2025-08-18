@@ -49,7 +49,7 @@ def extract_airport_locations() -> pd.DataFrame:
                       .sort_values(by="iata"))
 
     # Remove Uncessesary columns
-    us_airports_df = us_airports_df[['id', 'name', 'city', 'iata', 'lat',
+    us_airports_df = us_airports_df[['name', 'city', 'iata', 'lat',
                                      'lon', 'alt']]
 
     # Replace all \N with None so pandas recognises them as nulls
