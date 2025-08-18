@@ -55,21 +55,18 @@ class TestTransformMain:
         """Test that transform_main writes to file when write_to_file=True"""
         transform_main(sample_data_tuple, write_to_file=True)
 
-        assert mock_post.call_count == 2
-        mock_post.assert_any_call("output", "extract_airports.csv",
+        assert mock_post.call_count == 3
+        mock_post.assert_any_call("output", "clean_airports.csv",
                                   mock_post.call_args_list[0][0][2])
-        mock_post.assert_any_call("output", "extract_delay.csv",
+        mock_post.assert_any_call("output", "clean_delay.csv",
                                   mock_post.call_args_list[1][0][2])
 
     def test_transform_main_cleans_columns(self, sample_data_tuple):
         """Test that the data is properly cleaned"""
         result = transform_main(sample_data_tuple)
-        airport_result, delay_result = result
 
-        assert all(col.islower() for col in airport_result.columns)
-        assert all(col.islower() for col in delay_result.columns)
-        assert all('_' in col or col.isalpha() for col in airport_result.columns)
-        assert all('_' in col or col.isalpha() for col in delay_result.columns)
+        assert all(col.islower() for col in result.columns)
+        assert all('_' in col or col.isalpha() for col in result.columns)
 
     def test_transform_main_with_dirty_data(self):
         """Test transform_main with data that needs cleaning"""
@@ -106,12 +103,9 @@ class TestTransformMain:
             'late_aircraft_ct': [0.8, 1.2, 0.8]
         })
         result = transform_main((dirty_airport, dirty_delay))
-        airport_result, delay_result = result
 
         # Check that duplicates were removed
-        assert len(airport_result) <= len(dirty_airport)
-        assert len(delay_result) <= len(dirty_delay)
+        assert len(result) < len(dirty_airport)
 
         # Check that nulls were handled
-        assert not airport_result.isna().any().any()
-        assert not delay_result.isna().any().any()
+        assert not result.isna().any().any()
