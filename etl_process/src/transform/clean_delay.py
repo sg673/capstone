@@ -27,5 +27,30 @@ def clean_delay_data(data: pd.DataFrame) -> pd.DataFrame:
     clean_data = clean_data.dropna(subset=CRITICAL_COLUMNS)
     clean_data = clean_data.fillna(0)
 
+    # arrays are AI generated
+    str_cols = ['carrier',
+                'carrier_name',
+                'airport',
+                'airport_name']
+    int_cols = ['year',
+                'month',
+                'arr_flights',
+                'arr_del15',
+                'arr_cancelled',
+                'arr_diverted',
+                'arr_delay',
+                'carrier_delay',
+                'weather_delay',
+                'nas_delay',
+                'security_delay',
+                'late_aircraft_delay']
+    float_cols = ['carrier_ct',
+                  'weather_ct',
+                  'nas_ct',
+                  'security_ct',
+                  'late_aircraft_ct']
+    clean_data[str_cols] = clean_data[str_cols].astype("string")
+    clean_data[int_cols] = clean_data[int_cols].astype("int64")
+    clean_data[float_cols] = clean_data[float_cols].astype("float64")
 
     return clean_data
