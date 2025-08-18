@@ -130,3 +130,47 @@ class TestTransformer:
         assert transformer.clean_data['lat'].dtype == 'float64'
         assert transformer.clean_data['lon'].dtype == 'float64'
         assert transformer.clean_data['alt'].dtype == 'float64'
+
+
+class TestTransformerDelayData:
+
+    @pytest.fixture
+    def delay_data(self):
+        """Sample delay DataFrame for testing"""
+        return pd.DataFrame({
+            'Year': [2023, 2023, 2023, 2023],
+            'Month': [1, 2, 1, 3],
+            'Carrier': ['AA', 'BB', 'AA', None],
+            'Carrier Name': ['American', 'Blue', 'American', 'Unknown'],
+            'Airport': ['JFK', 'LAX', 'JFK', 'ORD'],
+            'Airport Name': ['JFK Airport', 'LAX Airport',
+                             'JFK Airport', None],
+            'Arr Flights': [100, 200, 100, 150],
+            'Carrier CT': [1.5, 2.0, 1.5, None]
+        })
+
+    @pytest.fixture
+    def delay_config(self):
+        """Delay configuration for testing"""
+        return {
+            'crit_cols': ['year', 'month',
+                          'carrier', 'carrier_name',
+                          'airport', 'airport_name'],
+            'col_types': {
+                'str_cols': ['carrier', 'carrier_name',
+                             'airport', 'airport_name'],
+                'int_cols': ['year', 'month', 'arr_flights'],
+                'float_cols': ['carrier_ct']
+            }
+        }
+
+    def test_delay_data_cleaning(self, delay_data, delay_config):
+        """Test cleaning of delay data"""
+        transformer = Transformer(
+            delay_data,
+            delay_config['crit_cols'],
+            delay_config['col_types']
+        )
+        result = transformer.clean()
+        assert len(result) == 2
+        assert result['carrier_ct'].fillna(0).equals(result['carrier_ct'])
