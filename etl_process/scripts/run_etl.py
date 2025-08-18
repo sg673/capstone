@@ -36,8 +36,8 @@ def main():
     logger.info("Extraction Phase Completed")
 
     logger.info("Started Transform Phase")
-    transformed_data = transform_main(extracted_data)
-    logger.info("Transform Completed Successfully")
+    transformed_data = transform_main(extracted_data, post_data)
+    logger.info("Transform Phase Completed")
 
 
 if __name__ == "__main__":
