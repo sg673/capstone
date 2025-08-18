@@ -132,3 +132,4 @@ class Transformer:
         for col_key, dtype in type_mapping.items():
             cols = self.col_types[col_key]
             self.clean_data[cols] = self.clean_data[cols].astype(dtype)
+        logger.info("columns converted to correct datatypes")
