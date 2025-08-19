@@ -2,7 +2,7 @@ import pandas as pd
 from src.utils.logging_utils import setup_logger
 import logging
 
-logger = setup_logger(__name__, "extract_data.log", level=logging.DEBUG)
+logger = setup_logger(__name__, "transform_data.log", level=logging.DEBUG)
 
 
 def merge_main(airport_df: pd.DataFrame,

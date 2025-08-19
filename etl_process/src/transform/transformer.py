@@ -3,7 +3,7 @@ from src.utils.logging_utils import setup_logger
 import logging
 from typing import Any
 
-logger = setup_logger(__name__, "extract_data.log", level=logging.DEBUG)
+logger = setup_logger(__name__, "transform_data.log", level=logging.DEBUG)
 
 
 class Transformer:
