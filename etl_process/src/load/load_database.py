@@ -30,28 +30,42 @@ def load_to_database(data: pd.DataFrame) -> bool:
         )
 
         subset = data.head(10000)  # limit upload to 10000 records
-        subset.to_sql("sam_capstone",
-                      engine,
-                      index=False,
-                      schema="de_2506_a",
-                      if_exists="replace")
-        logger.info(f"Loaded {len(subset)} rows to database")
+        # subset.to_sql("sam_capstone",
+        #               engine,
+        #               index=False,
+        #               schema="de_2506_a",
+        #               if_exists="replace")
+        # logger.info(f"Loaded {len(subset)} rows to database")
 
         current_dir = Path(__file__).parent
-        sql_file_path = current_dir.parent / "sql" / "count_records.sql"
-        if not sql_file_path.exists():
+        sql_count_records = current_dir.parent / "sql" / "count_records.sql"
+        if not sql_count_records.exists():
             logger.error("Sql file not found")
             return False
-        with open(sql_file_path, "r") as query_file:
+
+        with open(sql_count_records, "r") as query_file:
             query = query_file.read()
-        out = pd.read_sql_query(query, engine)
-        loaded_records = out.iloc[0]['total']
+        rows = pd.read_sql_query(query, engine)
+        loaded_records = rows.iloc[0]['total']
 
         if loaded_records != len(subset):
             logger.error(f"Only {loaded_records} records loaded,"
                          f"expected {len(subset)}")
             return False
 
+        sql_count_cols = current_dir.parent / "sql" / "count_columns.sql"
+        if not sql_count_cols.exists():
+            logger.error("Sql file not found")
+            return False
+        with open(sql_count_cols, "r") as query_file:
+            query = query_file.read()
+        cols = pd.read_sql_query(query, engine)
+        loaded_cols = cols.iloc[0]['columns']
+
+        if loaded_cols != len(subset.columns):
+            logger.error(f"found {loaded_cols} columns in database,"
+                         f"expected {len(subset.columns)}")
+            return False
         return True
     except Exception as e:
         logger.error(f"Database loading failed - {e}")
