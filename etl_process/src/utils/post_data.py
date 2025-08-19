@@ -1,5 +1,9 @@
 from pathlib import Path
 import pandas as pd
+from src.utils.logging_utils import setup_logger
+import logging
+
+logger = setup_logger(__name__, "extract_data.log", level=logging.DEBUG)
 
 
 def post(location: str, fileName: str, data: pd.DataFrame) -> bool:
@@ -18,9 +22,15 @@ def post(location: str, fileName: str, data: pd.DataFrame) -> bool:
     try:
         with open(data_path, "w+", newline='') as file:
             data.to_csv(file)
+        expected_rows = len(data) + 1
+        logger.info(f"Contents saved to csv at {data_path}")
+        with open(data_path, "r") as file:
+            actual_rows = sum(1 for n in file)
+        if actual_rows != expected_rows:
+            logger.warning("Created file does not contain expected rows")
         return True
     except Exception as e:
-        print(e)
+        logger.error(f"Could not save to file - {e}")
         return False
 
 
@@ -31,5 +41,5 @@ if __name__ == "__main__":
             "B": [3, 4]
         }
     )
-    result = main("test", "sample.csv", testDF)
+    result = post("test", "sample.csv", testDF)
     print(f"result:{result}")
