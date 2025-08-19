@@ -48,7 +48,17 @@ def load_to_database(data: pd.DataFrame) -> bool:
 
 def execute_sql(engine: Engine, file_name: str, expected_result) -> bool:
     """
+    Execute SQL query from file and validate result against expected value.
+
+    Args:
+        engine: SQLAlchemy database engine
+        file_name: Name of SQL file (without .sql extension) in src/sql directory
+        expected_result: Expected query result value for validation
+
+    Returns:
+        bool: True if query result matches expected value, False otherwise
     """
+
     current_dir = Path(__file__).parent
     sql_file = current_dir.parent / "sql" / f"{file_name}.sql"
     if not sql_file.exists():
