@@ -59,7 +59,7 @@ class TestLoadDatabase:
         assert result is True
 
     def test_sql_file_not_found(self, mock_engine):
-        with patch("pathlib.Path.exists", return_values=False):
+        with patch("pathlib.Path.exists", return_value=False):
             result = execute_sql(mock_engine, "nonthere", 5)
         assert result is False
 
