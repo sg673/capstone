@@ -6,7 +6,7 @@ from src.utils.post_data import post
 from src.utils.logging_utils import setup_logger
 import logging
 
-logger = setup_logger(__name__, "extract_data.log", level=logging.DEBUG)
+logger = setup_logger(__name__, "transform_data.log", level=logging.DEBUG)
 
 # Add these constants at the top of the file after the logger setup:
 
