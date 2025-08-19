@@ -27,10 +27,10 @@ def post(location: str, fileName: str, data: pd.DataFrame) -> bool:
         with open(data_path, "r") as file:
             actual_rows = sum(1 for n in file)
         if actual_rows != expected_rows:
-            logger.warning(f"File does not contain expected rows")
+            logger.warning("Created file does not contain expected rows")
         return True
     except Exception as e:
-        print(e)
+        logger.error(f"Could not save to file - {e}")
         return False
 
 
@@ -41,5 +41,5 @@ if __name__ == "__main__":
             "B": [3, 4]
         }
     )
-    result = main("test", "sample.csv", testDF)
+    result = post("test", "sample.csv", testDF)
     print(f"result:{result}")
