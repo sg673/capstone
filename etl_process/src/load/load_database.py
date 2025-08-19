@@ -1,0 +1,37 @@
+
+
+import pandas as pd
+from sqlalchemy import create_engine
+from config.db_config import load_db_config
+from src.utils.logging_utils import setup_logger
+import logging
+
+logger = setup_logger(__name__, "load_data.log", level=logging.DEBUG)
+
+
+def load_to_database(data: pd.DataFrame, if_exists: str = "replace") -> bool:
+    try:
+        config = load_db_config()
+        db_config = config["target_database"]
+
+        engine = create_engine(
+            f"postgresql://{db_config['user']}:{db_config['password']}@"
+            f"{db_config['host']}:{db_config['port']}/{db_config['dbname']}"
+        )
+
+        subset = data.head(10000)  # limit upload to 10000 records
+        subset.to_sql("sam_capstone", engine, index=False, schema="de_2506_a")
+        logger.info(f"Loaded {len(subset)} rows to database")
+        return True
+    except Exception as e:
+        logger.error(f"Database loading failed - {e}")
+        return False
+
+
+if __name__ == "__main__":
+    test1 = pd.DataFrame({
+        "name": ["test1", "test2"],
+        "address": ["1 example", "2 example"],
+        "age": [14, 26]
+    })
+    load_to_database(test1)
