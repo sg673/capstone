@@ -52,7 +52,8 @@ def execute_sql(engine: Engine, file_name: str, expected_result) -> bool:
 
     Args:
         engine: SQLAlchemy database engine
-        file_name: Name of SQL file (without .sql extension) in src/sql directory
+        file_name: Name of SQL file (without .sql extension) in src/sql
+          directory
         expected_result: Expected query result value for validation
 
     Returns:
