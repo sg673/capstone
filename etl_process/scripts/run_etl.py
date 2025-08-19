@@ -1,6 +1,7 @@
 import os
 import sys
 from config.env_config import setup_env
+from src.load.load import load_main
 from src.extract.extract import extract_main
 from src.transform.transform import transform_main
 from src.utils.logging_utils import setup_logger
@@ -38,6 +39,10 @@ def main():
     logger.info("Started Transform Phase")
     transformed_data = transform_main(extracted_data, post_data)
     logger.info("Transform Phase Completed")
+
+    logger.info("Starting Load Phase")
+    load_main(transformed_data)
+    logger.info("Load Phase Completed")
 
 
 if __name__ == "__main__":
