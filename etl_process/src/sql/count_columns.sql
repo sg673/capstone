@@ -1,5 +1,5 @@
 SELECT 
-    COUNT(*) as columns
+    COUNT(*) as result
 FROM 
     information_schema.columns
 WHERE

@@ -2,7 +2,7 @@
 
 from pathlib import Path
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import Engine, create_engine
 from config.db_config import load_db_config
 from src.utils.logging_utils import setup_logger
 import logging
@@ -30,46 +30,39 @@ def load_to_database(data: pd.DataFrame) -> bool:
         )
 
         subset = data.head(10000)  # limit upload to 10000 records
-        # subset.to_sql("sam_capstone",
-        #               engine,
-        #               index=False,
-        #               schema="de_2506_a",
-        #               if_exists="replace")
-        # logger.info(f"Loaded {len(subset)} rows to database")
+        subset.to_sql("sam_capstone",
+                      engine,
+                      index=False,
+                      schema="de_2506_a",
+                      if_exists="replace")
+        logger.info(f"Loaded {len(subset)} rows to database")
 
-        current_dir = Path(__file__).parent
-        sql_count_records = current_dir.parent / "sql" / "count_records.sql"
-        if not sql_count_records.exists():
-            logger.error("Sql file not found")
-            return False
+        # validate database shape
+        return execute_sql(engine, "count_records", len(subset)) and \
+            execute_sql(engine, "count_columns", len(subset.columns))
 
-        with open(sql_count_records, "r") as query_file:
-            query = query_file.read()
-        rows = pd.read_sql_query(query, engine)
-        loaded_records = rows.iloc[0]['total']
-
-        if loaded_records != len(subset):
-            logger.error(f"Only {loaded_records} records loaded,"
-                         f"expected {len(subset)}")
-            return False
-
-        sql_count_cols = current_dir.parent / "sql" / "count_columns.sql"
-        if not sql_count_cols.exists():
-            logger.error("Sql file not found")
-            return False
-        with open(sql_count_cols, "r") as query_file:
-            query = query_file.read()
-        cols = pd.read_sql_query(query, engine)
-        loaded_cols = cols.iloc[0]['columns']
-
-        if loaded_cols != len(subset.columns):
-            logger.error(f"found {loaded_cols} columns in database,"
-                         f"expected {len(subset.columns)}")
-            return False
-        return True
     except Exception as e:
         logger.error(f"Database loading failed - {e}")
         return False
+
+
+def execute_sql(engine: Engine, file_name: str, expected_result) -> bool:
+    """
+    """
+    current_dir = Path(__file__).parent
+    sql_file = current_dir.parent / "sql" / f"{file_name}.sql"
+    if not sql_file.exists():
+        logger.error(f"Sql file {file_name} not found")
+        return False
+    with open(sql_file, "r") as query_file:
+        query = query_file.read()
+    output = pd.read_sql_query(query, engine).iloc[0]['result']
+
+    if output != expected_result:
+        logger.error(f"Expected: {expected_result},"
+                     f"Got: {output}")
+        return False
+    return True
 
 
 if __name__ == "__main__":

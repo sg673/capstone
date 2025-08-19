@@ -1,4 +1,4 @@
 SELECT
-    COUNT(*) as total
+    COUNT(*) as result
 FROM 
     de_2506_a.sam_capstone
