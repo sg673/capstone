@@ -44,6 +44,7 @@ def graph_display(data: pd.DataFrame):
         grouped_data.head(20),
         x=group_by,
         y='total_delays_pct',
+        color='total_delays_pct',
         title=f'Total Delays Percentage by {group_by.title()} - {years_str}',
         labels={'total_delays_pct': 'Delay Percentage (%)'}
     )
