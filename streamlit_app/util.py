@@ -41,8 +41,8 @@ def get_data(access: AccessType = AccessType.DATABASE) -> pd.DataFrame:
             f"{secrets['SOURCE_DB_HOST']}:{secrets['SOURCE_DB_PORT']}/{secrets['SOURCE_DB_NAME']}"
         )
         with engine.connect() as conn:
-            data = pd.read_sql("SELECT * FROM de_2506_a.sam_capstone", conn)
-            return data
+            df = pd.read_sql("SELECT * FROM de_2506_a.sam_capstone", conn)
+            return df
 
     if access == AccessType.FILE:
         file = Path(os.getcwd()).parent / "etl_process" / "data" / "output" / "merged_data.csv"
