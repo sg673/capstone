@@ -62,8 +62,9 @@ def map_display(data: pd.DataFrame):
         fig.update_geos(projection_type="albers usa")
         fig.update_layout(
             margin=dict(l=20, r=20, t=20, b=20),
-            paper_bgcolor="#cfe0e8",
-            height=600
+            height=600,
+            paper_bgcolor='rgba(0,0,0,0)',
+            geo_bgcolor='rgba(0,0,0,0)'
         )
 
         st.plotly_chart(fig, height=800, on_select="ignore")

@@ -63,4 +63,8 @@ def graph_display(data: pd.DataFrame):
         hover_name=display_col
     )
 
+    fig.update_layout(
+        paper_bgcolor='rgba(0,0,0,0)',
+        plot_bgcolor='rgba(0,0,0,0)')
+
     st.plotly_chart(fig, use_container_width=True)
