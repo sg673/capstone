@@ -1,4 +1,5 @@
 from enum import Enum
+import pandas as pd
 import streamlit as st
 
 from nav_pages.graph import graph_display
@@ -12,7 +13,7 @@ class ColorPalette(Enum):
     ACCENT = "#f1e3dd"
 
 
-def navbar():
+def navbar(data: pd.DataFrame):
     st.set_page_config(page_title="Styled Navbar", layout="wide")
 
     with st.container(key="navbar-container", border=None):
@@ -26,6 +27,6 @@ def navbar():
     if page == "Home":
         st.title("🏠 Home")
     elif page == "Graph":
-        graph_display()
+        graph_display(data)
     elif page == "Map":
-        map_display()
+        map_display(data)
