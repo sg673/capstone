@@ -5,10 +5,10 @@ import os
 from sqlalchemy import create_engine
 import streamlit as st
 
+
 class AccessType(Enum):
     DATABASE = 1
     FILE = 2
-    ETL = 3
 
 
 # AI generated
@@ -51,10 +51,6 @@ def get_data(access: AccessType = AccessType.DATABASE) -> pd.DataFrame:
         df = pd.read_csv(file, encoding="latin-1", index_col=0)
         return df
 
-    if access == AccessType.ETL:
-        # run the etl pipeline and get the dataframe directly
-        print("not availabe yet")
-        return pd.DataFrame()
 
 
 if __name__ == "__main__":
