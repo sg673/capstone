@@ -2,7 +2,8 @@ from enum import Enum
 from pathlib import Path
 import pandas as pd
 import os
-
+from sqlalchemy import create_engine
+import streamlit as st
 
 class AccessType(Enum):
     DATABASE = 1
@@ -33,8 +34,15 @@ STATE_NAMES = {
 def get_data(access: AccessType = AccessType.DATABASE) -> pd.DataFrame:
     if access == AccessType.DATABASE:
         # Add connection to database
-        print("not availabe yet")
-        return pd.DataFrame()
+        secrets = st.secrets
+
+        engine = create_engine(
+            f"postgresql://{secrets['SOURCE_DB_USER']}:{secrets['SOURCE_DB_PASSWORD']}@"
+            f"{secrets['SOURCE_DB_HOST']}:{secrets['SOURCE_DB_PORT']}/{secrets['SOURCE_DB_NAME']}"
+        )
+        with engine.connect() as conn:
+            data = pd.read_sql("SELECT * FROM de_2506_a.sam_capstone", conn)
+            return data
 
     if access == AccessType.FILE:
         file = Path(os.getcwd()).parent / "etl_process" / "data" / "output" / "merged_data.csv"
@@ -47,3 +55,7 @@ def get_data(access: AccessType = AccessType.DATABASE) -> pd.DataFrame:
         # run the etl pipeline and get the dataframe directly
         print("not availabe yet")
         return pd.DataFrame()
+
+
+if __name__ == "__main__":
+    print(get_data().shape)
