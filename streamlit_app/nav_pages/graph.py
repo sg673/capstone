@@ -17,8 +17,13 @@ def graph_display(data: pd.DataFrame):
                                         default=[data['year'].max()])
 
     with col2:
-        group_by = st.selectbox("Group by", ['carrier_name', 'name', 'state'])
-
+        group_options = {
+                'Carrier': 'carrier_name',
+                'Airport': 'name',
+                'State': 'state'
+            }
+        selected_group = st.selectbox("Group by", list(group_options.keys()))
+        group_by = group_options[selected_group]
     with col4:
         sort_order = st.selectbox("Order", ['Descending', 'Ascending'])
 
