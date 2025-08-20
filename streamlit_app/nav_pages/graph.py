@@ -5,7 +5,6 @@ from util import STATE_NAMES
 
 
 def graph_display(data: pd.DataFrame):
-    st.title("GRAPH")
 
     ct_cols = [col for col in data.columns if col.endswith('_ct')]
 
