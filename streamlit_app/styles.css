@@ -1,0 +1,44 @@
+#root {
+    text-align: center;
+}
+:root {
+    --primary: #87bdd8;
+    --secondary: #b7d7e8;
+    --neutral: #cfe0e8;
+    --accent: #daebe8;
+    }
+div[role=radiogroup] {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1px;
+}
+div[role=radiogroup] label > div:first-child {
+    display: none; /* hide the radio button circle */
+}
+div[role=radiogroup] label {
+    background-color: var(--primary);
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+div[role=radiogroup] label:hover {
+    background-color: var(--neutral);
+}
+div[role=radiogroup] input:checked + div {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.st-key-title{
+    background-color: var(--primary);
+    border-radius: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.st-key-title > * {
+    text-align: center;
+    padding:5px
+}
