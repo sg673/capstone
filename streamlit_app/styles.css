@@ -2,11 +2,14 @@
     text-align: center;
 }
 :root {
-    --primary: #87bdd8;
+    /* --neutral: #cfe0e8;
     --secondary: #b7d7e8;
-    --neutral: #cfe0e8;
-    --accent: #daebe8;
-
+    --primary: #87bdd8;
+    --accent: #daebe8; */
+    --neutral:  #bccad6;
+    --secondary: #8d9db6;
+    --primary: #667292;
+    --accent: #f1e3dd;
 }
 .stMainBlockContainer {
     padding-left: 1rem;
@@ -77,4 +80,12 @@ div[role=radiogroup] input:checked + div {
 .st-key-bg{
     background-color: var(--neutral);
     padding:10px;
+}
+.stSelectbox > div > *, .stMultiSelect > div > div > * {
+    background-color: var(--accent);
+    border:none;
+    box-shadow: 0px 3px 3px var(--secondary)
+}
+.stMultiSelect > div > div > div > div > span{
+    background-color: var(--primary);
 }
