@@ -2,6 +2,9 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 from enum import Enum
+import os
+
+from navbar import navbar
 
 
 class AccessType(Enum):
@@ -17,11 +20,10 @@ def get_data(access: AccessType = AccessType.DATABASE) -> pd.DataFrame:
         return pd.DataFrame()
 
     if access == AccessType.FILE:
-        current_dir = Path(__file__).parent
-        file = current_dir.parent / "etl_process" / "data" / "output" / "merged_data.csv"
+        file = Path(os.getcwd()).parent / "etl_process" / "data" / "output" / "merged_data.csv"
         if not file.exists():
             raise FileNotFoundError(f"file not found {file}")
-        df = pd.read_csv(file, encoding="latin-1")
+        df = pd.read_csv(file, encoding="latin-1", index_col=0)
         return df
 
     if access == AccessType.ETL:
@@ -31,8 +33,19 @@ def get_data(access: AccessType = AccessType.DATABASE) -> pd.DataFrame:
 
 
 def main():
-    st.title("Airport Delay Stats")
+    # Center all content
+    with open("styles.css") as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+
+    with st.container(key="title"):
+        st.title("Airport Delay Stats")
+    data = get_data(AccessType.FILE)
+    navbar()
 
 
 if __name__ == "__main__":
-    get_data(AccessType.FILE)
+    st.set_page_config(
+        page_title="BluckBoster Analytics",
+        layout="wide"
+    )
+    main()
