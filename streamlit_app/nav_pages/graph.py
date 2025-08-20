@@ -1,6 +1,7 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
+from util import STATE_NAMES
 
 
 def graph_display(data: pd.DataFrame):
@@ -27,6 +28,12 @@ def graph_display(data: pd.DataFrame):
     agg_dict['arr_flights'] = 'sum'
     grouped_data = filtered_data.groupby(group_by).agg(agg_dict).reset_index()
 
+    if group_by == 'state':
+        grouped_data['state_name'] = grouped_data['state'].map(STATE_NAMES)
+        display_col = 'state_name'
+    else:
+        display_col = group_by
+
     grouped_data['total_delays'] = grouped_data[ct_cols].sum(axis=1)
     grouped_data['total_delays_pct'] = round(
         (grouped_data['total_delays'] / grouped_data['arr_flights']) * 100, 2)
@@ -37,7 +44,8 @@ def graph_display(data: pd.DataFrame):
             (grouped_data[col] / grouped_data['arr_flights']) * 100, 2)
 
     ascending = sort_order == 'Ascending'
-    grouped_data = grouped_data.sort_values('total_delays_pct', ascending=ascending)
+    grouped_data = grouped_data.sort_values('total_delays_pct',
+                                            ascending=ascending)
 
     years_str = ', '.join(map(str, selected_years))
     fig = px.bar(
@@ -46,7 +54,8 @@ def graph_display(data: pd.DataFrame):
         y='total_delays_pct',
         color='total_delays_pct',
         title=f'Total Delays Percentage by {group_by.title()} - {years_str}',
-        labels={'total_delays_pct': 'Delay Percentage (%)'}
+        labels={'total_delays_pct': 'Delay Percentage (%)'},
+        hover_name=display_col
     )
 
     st.plotly_chart(fig, use_container_width=True)
