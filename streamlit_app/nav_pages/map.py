@@ -1,25 +1,7 @@
 import pandas as pd
 import streamlit as st
 import plotly.express as px
-
-# AI generated
-state_names = {
-    'AL': 'Alabama', 'AK': 'Alaska', 'AZ': 'Arizona', 'AR': 'Arkansas',
-    'CA': 'California', 'CO': 'Colorado', 'CT': 'Connecticut',
-    'DE': 'Delaware', 'FL': 'Florida', 'GA': 'Georgia', 'HI': 'Hawaii',
-    'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana', 'IA': 'Iowa',
-    'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana', 'ME': 'Maine',
-    'MD': 'Maryland', 'MA': 'Massachusetts', 'MI': 'Michigan',
-    'MN': 'Minnesota', 'MS': 'Mississippi', 'MO': 'Missouri',
-    'MT': 'Montana', 'NE': 'Nebraska', 'NV': 'Nevada',
-    'NH': 'New Hampshire', 'NJ': 'New Jersey', 'NM': 'New Mexico',
-    'NY': 'New York', 'NC': 'North Carolina', 'ND': 'North Dakota',
-    'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon', 'PA': 'Pennsylvania',
-    'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota',
-    'TN': 'Tennessee', 'TX': 'Texas', 'UT': 'Utah', 'VT': 'Vermont',
-    'VA': 'Virginia', 'WA': 'Washington', 'WV': 'West Virginia',
-    'WI': 'Wisconsin', 'WY': 'Wyoming'
-}
+from util import STATE_NAMES
 
 
 def map_display(data: pd.DataFrame):
@@ -32,7 +14,7 @@ def map_display(data: pd.DataFrame):
     state_summary['total_ct'] = state_summary[ct_cols].sum(axis=1)
     state_summary['arr_flights_pct'] = round(
         (state_summary['total_ct'] / state_summary['arr_flights']) * 100, 2)
-    state_summary['state_name'] = state_summary['state'].map(state_names)
+    state_summary['state_name'] = state_summary['state'].map(STATE_NAMES)
 
     for col in ct_cols:
         pct_col = col.replace('_ct', '_pct_of_delays')
