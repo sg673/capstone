@@ -15,7 +15,7 @@ class ColorPalette(Enum):
 def navbar():
     st.set_page_config(page_title="Styled Navbar", layout="wide")
 
-    with st.container(height=70):
+    with st.container(key="navbar-container", border=None):
         page = st.radio(
             "Navigation",
             ["Home", "Graph", "Map"],

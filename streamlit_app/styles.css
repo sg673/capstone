@@ -16,7 +16,7 @@ div[role=radiogroup] label > div:first-child {
     display: none; /* hide the radio button circle */
 }
 div[role=radiogroup] label {
-    background-color: var(--primary);
+    background-color: var(--accent);
     padding: 8px 16px;
     border-radius: 5px;
     cursor: pointer;
@@ -37,8 +37,14 @@ div[role=radiogroup] input:checked + div {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 0px;
 }
 .st-key-title > * {
     text-align: center;
     padding:5px
+}
+.st-key-navbar-container{
+    background-color: var(--secondary);
+    padding: 10px;
+    border-radius: 5px;
 }
