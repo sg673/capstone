@@ -1,0 +1,80 @@
+#root {
+    text-align: center;
+}
+:root {
+    --primary: #87bdd8;
+    --secondary: #b7d7e8;
+    --neutral: #cfe0e8;
+    --accent: #daebe8;
+
+}
+.stMainBlockContainer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 0rem;
+    background-color: var(--neutral);
+    height: 100%;
+}
+.stAppHeader {
+    background-color: rgba(255, 255, 255, 0.0);
+    visibility: visible;
+}
+[data-testid = "stSidebarHeader"] {
+    height: 2rem; /* 2rem keeps just enough space for the icon*/
+}
+div[role=radiogroup] {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1px;
+}
+div[role=radiogroup] label > div:first-child {
+    display: none; /* hide the radio button circle */
+}
+div[role=radiogroup] label {
+    background-color: var(--accent);
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+div[role=radiogroup] label:hover {
+    background-color: var(--neutral);
+}
+div[role=radiogroup] input:checked + div {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.st-key-title{
+    background-color: var(--primary);
+    border-radius: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0px;
+    box-shadow: 0px 3px 3px var(--secondary);
+}
+.st-key-title > * {
+    text-align: center;
+    padding:5px;
+    color: white;
+}
+.st-key-navbar-container{
+    background-color: var(--secondary);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 3px 3px var(--primary);
+}
+
+.st-key-us-map{
+    background-color: var(--neutral);
+    border-radius: 5px;
+    padding:2rem;
+}
+
+.st-key-bg{
+    background-color: var(--neutral);
+    padding:10px;
+}
