@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-import plotly.express as px
+import plotly.express as px  # type: ignore
 from util import STATE_NAMES
 
 
@@ -30,7 +30,7 @@ def map_display(data: pd.DataFrame):
                                                 .unique()))
 
         with cols[1]:
-            delay_options = ['All Delays'] + [col.replace("_ct","").title()
+            delay_options = ['All Delays'] + [col.replace("_ct", "").title()
                                               for col in ct_cols]
             selected_delay = st.selectbox("Delay Type", delay_options)
 

@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-import plotly.express as px
+import plotly.express as px  # type: ignore
 from util import STATE_NAMES
 
 
@@ -58,7 +58,8 @@ def graph_display(data: pd.DataFrame):
         x=group_by,
         y='total_delays_pct',
         color='total_delays_pct',
-        title=f'Total Delays Percentage by {selected_group.title()} - {years_str}',
+        title=f'Total Delays Percentage by {selected_group.title()} - '
+        f'{years_str}',
         labels={'total_delays_pct': 'Delay Percentage (%)'},
         hover_name=display_col,
         color_continuous_scale="dense"
