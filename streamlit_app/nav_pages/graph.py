@@ -1,6 +1,51 @@
 import pandas as pd
 import streamlit as st
+import plotly.express as px
 
 
 def graph_display(data: pd.DataFrame):
     st.title("GRAPH")
+
+    ct_cols = [col for col in data.columns if col.endswith('_ct')]
+
+    # Filter controls
+    col1, col2, col4 = st.columns(3)
+
+    with col1:
+        selected_years = st.multiselect("Year", sorted(data['year'].unique()),
+                                        default=[data['year'].max()])
+
+    with col2:
+        group_by = st.selectbox("Group by", ['carrier_name', 'name', 'state'])
+
+    with col4:
+        sort_order = st.selectbox("Order", ['Descending', 'Ascending'])
+
+    filtered_data = data[data['year'].isin(selected_years)]
+
+    agg_dict = {col: 'sum' for col in ct_cols}
+    agg_dict['arr_flights'] = 'sum'
+    grouped_data = filtered_data.groupby(group_by).agg(agg_dict).reset_index()
+
+    grouped_data['total_delays'] = grouped_data[ct_cols].sum(axis=1)
+    grouped_data['total_delays_pct'] = round(
+        (grouped_data['total_delays'] / grouped_data['arr_flights']) * 100, 2)
+
+    for col in ct_cols:
+        pct_col = col.replace('_ct', '_pct')
+        grouped_data[pct_col] = round(
+            (grouped_data[col] / grouped_data['arr_flights']) * 100, 2)
+
+    ascending = sort_order == 'Ascending'
+    grouped_data = grouped_data.sort_values('total_delays_pct', ascending=ascending)
+
+    years_str = ', '.join(map(str, selected_years))
+    fig = px.bar(
+        grouped_data.head(20),
+        x=group_by,
+        y='total_delays_pct',
+        title=f'Total Delays Percentage by {group_by.title()} - {years_str}',
+        labels={'total_delays_pct': 'Delay Percentage (%)'}
+    )
+
+    st.plotly_chart(fig, use_container_width=True)
