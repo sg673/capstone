@@ -8,10 +8,10 @@ def main():
     # Center all content
     with open("styles.css") as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
-    data = get_data(AccessType.FILE)
-    navbar(data)
     with st.container(key="title"):
         st.title("Airport Delay Stats")
+    data = get_data(AccessType.FILE)
+    navbar(data)
 
 
 
