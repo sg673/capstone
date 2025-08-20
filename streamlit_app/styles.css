@@ -48,3 +48,9 @@ div[role=radiogroup] input:checked + div {
     padding: 10px;
     border-radius: 5px;
 }
+
+.st-key-us-map{
+    background-color: var(--neutral);
+    border-radius: 5px;
+    padding:2rem;
+}
