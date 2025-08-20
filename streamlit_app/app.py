@@ -12,7 +12,7 @@ def main():
     data = get_data(AccessType.FILE)
     with st.container(key="title"):
         st.title("Airport Delay Stats")
-        navbar(data)
+    navbar(data)
 
 
 if __name__ == "__main__":

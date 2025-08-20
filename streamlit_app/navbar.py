@@ -23,9 +23,10 @@ def navbar(data: pd.DataFrame):
             label_visibility="collapsed"
         )
 
-    if page == "Home":
-        st.title("🏠 Home")
-    elif page == "Graph":
-        graph_display(data)
-    elif page == "Map":
-        map_display(data)
+    with st.container(key="bg"):
+        if page == "Home":
+            st.title("🏠 Home")
+        elif page == "Graph":
+            graph_display(data)
+        elif page == "Map":
+            map_display(data)

@@ -54,3 +54,7 @@ div[role=radiogroup] input:checked + div {
     border-radius: 5px;
     padding:2rem;
 }
+
+.st-key-bg{
+    background-color: var(--neutral);
+}
