@@ -31,8 +31,6 @@ def navbar(data: pd.DataFrame, raw_data):
              "Transform",
              "Load",
              "Visualise",
-             "Graph",
-             "Map",
              "Conclusion"],
             horizontal=True,
             label_visibility="collapsed"
