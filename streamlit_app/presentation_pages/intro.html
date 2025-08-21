@@ -1,94 +1,10 @@
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: #333;
-            min-height: 100vh;
-        }
-        .container {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: var(--accent);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-        }
-        h1 {
-            color: var(--accent);
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 2.5em;
-            border-bottom: 3px solid rgba(255, 255, 255, 0.3);
-            padding-bottom: 10px;
-        }
-        h2 {
-            color: var(--accent);
-            margin-top: 30px;
-            font-size: 1.8em;
-            border-left: 4px solid rgba(255, 255, 255, 0.3);
-            padding-left: 15px;
-        }
-        .overview-section {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border-left: 5px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-        }
-        .components {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-        .component-card {
-            background: rgba(255, 255, 255, 0.15);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-        }
-        .component-card h3 {
-            color: #f1e3dd;
-            margin-top: 0;
-        }
-        .problem-section {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            border-left: 5px solid rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-        }
-        ul {
-            padding-left: 20px;
-        }
-        li {
-            margin-bottom: 8px;
-        }
-        .highlight {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-weight: bold;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px solid rgba(255, 255, 255, 0.3);
-            color: #f1e3dd;
-        }
-    </style>
 </head>
-<body>
-    <div class="container">
+<body class="pres-body">
+    <div class="pres-container">
         <h1>Airport Delay Analytics</h1>
-        <div class="overview-section">
+        <div class="pres-section">
             <h2>Project Overview</h2>
-            <p>This capstone project demonstrates a complete <span class="highlight">data engineering workflow</span> for analyzing US airport delays:</p>
+            <p>This capstone project demonstrates a complete <span class="pres-highlight">data engineering workflow</span> for analyzing US airport delays:</p>
             <ul>
                 <li><strong>Extract</strong> airline delay data from government sources</li>
                 <li><strong>Transform</strong> and clean datasets for analysis</li>
@@ -97,8 +13,8 @@
             </ul>
         </div>
         <h2>Key Components</h2>
-        <div class="components">
-            <div class="component-card">
+        <div class="pres-grid">
+            <div class="pres-card">
                 <h3>ETL Pipeline</h3>
                 <ul>
                     <li>Automated data extraction and processing</li>
@@ -107,7 +23,7 @@
                     <li>Comprehensive logging and testing</li>
                 </ul>
             </div>
-            <div class="component-card">
+            <div class="pres-card">
                 <h3>Interactive Dashboard</h3>
                 <ul>
                     <li>Real-time data visualization</li>
@@ -117,9 +33,9 @@
                 </ul>
             </div>
         </div>
-        <div class="problem-section">
+        <div class="pres-section">
             <h2>Problem Statement</h2>
-            <p>Flight delays cost the US economy <span class="highlight">billions annually</span> and affect millions of passengers. Understanding delay patterns across carriers, airports, and regions is crucial for:</p>
+            <p>Flight delays cost the US economy <span class="pres-highlight">billions annually</span> and affect millions of passengers. Understanding delay patterns across carriers, airports, and regions is crucial for:</p>
             <ul>
                 <li><strong>Airlines:</strong> Operational optimization</li>
                 <li><strong>Airports:</strong> Resource allocation</li>
@@ -128,7 +44,7 @@
             </ul>
         </div>
         <h2>Our Solution</h2>
-        <p>A <span class="highlight">scalable ETL pipeline</span> that processes historical delay data to provide actionable insights through:</p>
+        <p>A <span class="pres-highlight">scalable ETL pipeline</span> that processes historical delay data to provide actionable insights through:</p>
         <ol>
             <li><strong>Automated Data Processing</strong> - Reliable, repeatable data workflows</li>
             <li><strong>Interactive Visualizations</strong> - Easy-to-understand charts and maps</li>
@@ -136,8 +52,8 @@
             <li><strong>Comprehensive Testing</strong> - Ensures data quality and system reliability</li>
         </ol>
         <h2>Data Sources & Technologies</h2>
-        <div class="components">
-            <div class="component-card">
+        <div class="pres-grid">
+            <div class="pres-card">
                 <h3>Data Sources</h3>
                 <ul>
                     <li><strong>US DOT</strong> Airline Statistics</li>
@@ -152,7 +68,7 @@
                     <li>Late Aircraft Delays</li>
                 </ul>
             </div>
-            <div class="component-card">
+            <div class="pres-card">
                 <h3>Technologies Used</h3>
                 <ul>
                     <li>Python</li>
@@ -163,7 +79,7 @@
                 </ul>
             </div>
         </div>
-        <div class="footer">
+        <div class="pres-footer">
             <p><strong>Airport Delay Analytics Capstone Project</strong></p>
             <p>&copy; 2025 Data Engineering Capstone</p>
         </div>
