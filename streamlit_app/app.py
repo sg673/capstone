@@ -11,7 +11,7 @@ def main():
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     data = get_data(AccessType.FILE)
     with st.container(key="title"):
-        st.title("Airport Delay Stats")
+        st.title("Sam's Capstone")
     navbar(data)
 
 
