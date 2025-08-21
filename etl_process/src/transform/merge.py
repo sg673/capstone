@@ -35,6 +35,11 @@ def merge_main(airport_df: pd.DataFrame,
     merged_df['state'] = merged_df['airport_name'] \
         .str.split(', ') \
         .str[1].str.split(':').str[0]
+
+    ct_cols = [col for col in merged_df.columns if col.endswith('_ct')]
+    merged_df['total_ct'] = merged_df[ct_cols].sum(axis=1)
+    merged_df['arr_flights_pct'] = round(
+        (merged_df['total_ct'] / merged_df['arr_flights']) * 100, 2)
     merged_df = merged_df.drop(['arr_del15',
                                 'airport_name',
                                 'airport'], axis=1)
