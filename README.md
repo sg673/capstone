@@ -133,6 +133,8 @@ The system analyzes various delay types:
 - **NAS Delays**: National Airspace System delays
 - **Security Delays**: Security-related delays
 - **Late Aircraft Delays**: Previous flight delays
+> A flight is considered delayed when it arrived 15 or more minutes than the schedule. Delayed minutes are calculated for delayed flights only.
+When multiple causes are assigned to one delayed flight, each cause is prorated based on delayed minutes it is responsible for. The displayed numbers are rounded and may not add up to the total.
 
 ## Dashboard Features
 
