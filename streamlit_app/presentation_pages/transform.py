@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 
 
+# The vast majority of this file is AI generated
 def show_transformer_methods():
     """Display the actual Transformer class methods"""
     methods = {
@@ -176,7 +177,12 @@ def render_dataframe_step(df, title, step_desc):
 
 
 def pres_transform():
-    st.title("Transform Phase")
+    st.markdown("""
+    <header>
+      <h1>Transformation Phase</h1>
+      <h2>Data Cleaning and Validation</h2>
+    </header>
+    """, unsafe_allow_html=True)
 
     # Load sample data for demonstration
     try:
@@ -215,9 +221,6 @@ def pres_transform():
     merged_data = simulate_merge(delay_steps[4], airport_steps[4])
 
     st.markdown("---")
-    st.markdown("## Live Transformation Demo")
-    st.markdown("See the actual transformer methods and merge function "
-                "in action:")
 
     # Step selector
     step_options = {
