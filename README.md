@@ -15,10 +15,6 @@ A comprehensive data analytics solution for analyzing US airport delays, featuri
 - <a href="#testing">Testing</a>
 - <a href="#configuration">Configuration</a>
 - <a href="#logging">Logging</a>
-- <a href="#contributing">Contributing</a>
-- <a href="#license">License</a>
-- <a href="#authors">Authors</a>
-- <a href="#acknowledgments">Acknowledgments</a>
 
 ## Project Overview
 
