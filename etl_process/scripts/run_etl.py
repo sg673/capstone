@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 from config.env_config import setup_env
 from src.load.load import load_main
 from src.extract.extract import extract_main
@@ -14,6 +15,7 @@ logger = setup_logger(
 
 
 def main():
+    start_time = time.time()
     # Get the argument from the run_etl command and set up the environment
     setup_env(sys.argv)
     logger.info(
@@ -33,17 +35,24 @@ def main():
         post_data = False
 
     logger.info("Started Extraction Phase")
+    extract_start = time.time()
     extracted_data = extract_main(post_data)
-    logger.info("Extraction Phase Completed")
+    extract_time = time.time() - extract_start
+    logger.info(f"Extraction Phase Completed in {extract_time:.2f} seconds")
 
     logger.info("Started Transform Phase")
+    transform_start = time.time()
     transformed_data = transform_main(extracted_data, post_data)
-    logger.info("Transform Phase Completed")
+    transform_time = time.time() - transform_start
+    logger.info(f"Transform Phase Completed in {transform_time:.2f} seconds")
 
     logger.info("Starting Load Phase")
+    load_start = time.time()
     load_main(transformed_data)
-    logger.info("Load Phase Completed")
+    load_time = time.time() - load_start
+    logger.info(f"Load Phase Completed in {load_time:.2f} seconds")
 
-
+    total_time = time.time() - start_time
+    logger.info(f"ETL Pipeline completed in {total_time:.2f} seconds total")
 if __name__ == "__main__":
     main()
