@@ -25,7 +25,7 @@ def navbar(data: pd.DataFrame, raw_data):
     with st.container(key="navbar-container", border=None):
         page = st.radio(
             "Navigation",
-            ["Home",
+            [
              "Intro",
              "Extract",
              "Transform",
@@ -37,13 +37,7 @@ def navbar(data: pd.DataFrame, raw_data):
         )
 
     with st.container(key="bg"):
-        if page == "Home":
-            st.title("🏠 Home")
-        elif page == "Graph":
-            graph_display(data)
-        elif page == "Map":
-            map_display(data)
-        elif page == "Intro":
+        if page == "Intro":
             pres_intro()
         elif page == "Extract":
             pres_extract(raw_data[1], raw_data[0])
