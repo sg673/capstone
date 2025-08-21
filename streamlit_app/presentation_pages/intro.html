@@ -1,112 +1,170 @@
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #8d9db6 0%, #667292 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #667292;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid #667292;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #667292;
+            margin-top: 30px;
+            font-size: 1.8em;
+            border-left: 4px solid #8d9db6;
+            padding-left: 15px;
+        }
+        .overview-section {
+            background: #f1e3dd;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #667292;
+        }
+        .components {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .component-card {
+            background: #bccad6;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #8d9db6;
+        }
+        .component-card h3 {
+            color: #667292;
+            margin-top: 0;
+        }
+        .problem-section {
+            background: #f1e3dd;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #8d9db6;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .highlight {
+            background: #f1e3dd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #bccad6;
+            color: #8d9db6;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <h1>Airport Delay Analytics</h1>
-    <h2>A Comprehensive ETL Pipeline & Data Visualization Solution</h2>
-  </header>
-
-  <main>
-    <section class="section content">
-      <div class="content-section">
-        <div class="collapsible-section">
-          <input type="checkbox" id="overview" class="toggle">
-          <label for="overview" class="toggle-label">Project Overview</label>
-          <div class="collapsible-content">
-            <p>This capstone project demonstrates a complete <b>data engineering workflow</b> for analyzing US airport delays:</p>
+    <div class="container">
+        <h1>Airport Delay Analytics</h1>
+        <p style="text-align: center; font-size: 1.2em; color: #8d9db6; margin-bottom: 30px;">A Comprehensive ETL Pipeline & Data Visualization Solution</p>
+        <div class="overview-section">
+            <h2>Project Overview</h2>
+            <p>This capstone project demonstrates a complete <span class="highlight">data engineering workflow</span> for analyzing US airport delays:</p>
             <ul>
-              <li><b>Extract</b> airline delay data from government sources</li>
-              <li><b>Transform</b> and clean datasets for analysis</li>
-              <li><b>Load</b> processed data into storage systems</li>
-              <li><b>Visualize</b> insights through interactive dashboards</li>
+                <li><strong>Extract</strong> airline delay data from government sources</li>
+                <li><strong>Transform</strong> and clean datasets for analysis</li>
+                <li><strong>Load</strong> processed data into storage systems</li>
+                <li><strong>Visualize</strong> insights through interactive dashboards</li>
             </ul>
-          </div>
         </div>
-        <div class="collapsible-section">
-          <input type="checkbox" id="components" class="toggle">
-          <label for="components" class="toggle-label">Key Components</label>
-          <div class="collapsible-content">
-            <h3>1. ETL Pipeline</h3>
+        <h2>Key Components</h2>
+        <div class="components">
+            <div class="component-card">
+                <h3>ETL Pipeline</h3>
+                <ul>
+                    <li>Automated data extraction and processing</li>
+                    <li>Data validation and quality checks</li>
+                    <li>Flexible storage options (PostgreSQL/CSV)</li>
+                    <li>Comprehensive logging and testing</li>
+                </ul>
+            </div>
+            <div class="component-card">
+                <h3>Interactive Dashboard</h3>
+                <ul>
+                    <li>Real-time data visualization</li>
+                    <li>Geographic mapping capabilities</li>
+                    <li>Multi-dimensional filtering</li>
+                    <li>User-friendly interface</li>
+                </ul>
+            </div>
+        </div>
+        <div class="problem-section">
+            <h2>Problem Statement</h2>
+            <p>Flight delays cost the US economy <span class="highlight">billions annually</span> and affect millions of passengers. Understanding delay patterns across carriers, airports, and regions is crucial for:</p>
             <ul>
-              <li>Automated data extraction and processing</li>
-              <li>Data validation and quality checks</li>
-              <li>Flexible storage options (PostgreSQL/CSV)</li>
+                <li><strong>Airlines:</strong> Operational optimization</li>
+                <li><strong>Airports:</strong> Resource allocation</li>
+                <li><strong>Passengers:</strong> Travel planning</li>
+                <li><strong>Regulators:</strong> Policy decisions</li>
             </ul>
-            <h3>2. Interactive Dashboard</h3>
-            <ul>
-              <li>Real-time data visualization</li>
-              <li>Geographic mapping capabilities</li>
-              <li>Multi-dimensional filtering</li>
-            </ul>
-          </div>
         </div>
-        <div class="collapsible-section">
-          <input type="checkbox" id="problem" class="toggle">
-          <label for="problem" class="toggle-label">Problem Statement</label>
-          <div class="collapsible-content">
-            <p>Flight delays cost the US economy <b>billions annually</b> and affect millions of passengers. 
-            Understanding delay patterns across carriers, airports, and regions is crucial for:</p>
-            <ul>
-              <li><b>Airlines</b>: Operational optimization</li>
-              <li><b>Airports</b>: Resource allocation</li>
-              <li><b>Passengers</b>: Travel planning</li>
-              <li><b>Regulators</b>: Policy decisions</li>
-            </ul>
-          </div>
+        <h2>Our Solution</h2>
+        <p>A <span class="highlight">scalable ETL pipeline</span> that processes historical delay data to provide actionable insights through:</p>
+        <ol>
+            <li><strong>Automated Data Processing</strong> - Reliable, repeatable data workflows</li>
+            <li><strong>Interactive Visualizations</strong> - Easy-to-understand charts and maps</li>
+            <li><strong>Flexible Architecture</strong> - Supports both development and production environments</li>
+            <li><strong>Comprehensive Testing</strong> - Ensures data quality and system reliability</li>
+        </ol>
+        <h2>Data Sources & Technologies</h2>
+        <div class="components">
+            <div class="component-card">
+                <h3>Data Sources</h3>
+                <ul>
+                    <li><strong>US DOT</strong> Airline Statistics</li>
+                    <li><strong>OpenFlights</strong> Airport Data</li>
+                </ul>
+                <h3>Delay Types Analyzed</h3>
+                <ul>
+                    <li>Carrier Delays</li>
+                    <li>Weather Delays</li>
+                    <li>NAS Delays</li>
+                    <li>Security Delays</li>
+                    <li>Late Aircraft Delays</li>
+                </ul>
+            </div>
+            <div class="component-card">
+                <h3>Technologies Used</h3>
+                <ul>
+                    <li>Python</li>
+                    <li>PostgreSQL</li>
+                    <li>Streamlit</li>
+                    <li>Pandas</li>
+                    <li>Plotly</li>
+                </ul>
+            </div>
         </div>
-        <div class="collapsible-section">
-          <input type="checkbox" id="solution" class="toggle">
-          <label for="solution" class="toggle-label">Our Solution</label>
-          <div class="collapsible-content">
-            <p>A <b>scalable ETL pipeline</b> that processes historical delay data to provide actionable insights through:</p>
-            <ol>
-              <li><b>Automated Data Processing</b> - Reliable, repeatable data workflows</li>
-              <li><b>Interactive Visualizations</b> - Easy-to-understand charts and maps</li>
-              <li><b>Flexible Architecture</b> - Supports both development and production environments</li>
-              <li><b>Comprehensive Testing</b> - Ensures data quality and system reliability</li>
-            </ol>
-          </div>
+        <div class="footer">
+            <p><strong>Airport Delay Analytics Capstone Project</strong></p>
+            <p>&copy; 2025 Data Engineering Capstone</p>
         </div>
-      </div>
-      <div class="sidebar-content">
-        <div class="collapsible-section">
-          <input type="checkbox" id="sources" class="toggle">
-          <label for="sources" class="toggle-label-h3">Data Sources</label>
-          <div class="collapsible-content">
-            <ul>
-              <li><b>US DOT</b> Airline Statistics</li>
-              <li><b>OpenFlights</b> Airport Data</li>
-            </ul>
-          </div>
-        </div>
-        <div class="collapsible-section">
-          <input type="checkbox" id="delays" class="toggle">
-          <label for="delays" class="toggle-label-h3">Delay Types Analyzed</label>
-          <div class="collapsible-content">
-            <ul>
-              <li>Carrier Delays</li>
-              <li>Weather Delays</li>
-              <li>NAS Delays</li>
-              <li>Security Delays</li>
-              <li>Late Aircraft Delays</li>
-            </ul>
-          </div>
-        </div>
-        <div class="collapsible-section">
-          <input type="checkbox" id="tech" class="toggle">
-          <label for="tech" class="toggle-label-h3">Technologies Used</label>
-          <div class="collapsible-content">
-            <ul>
-              <li>Python</li>
-              <li>PostgreSQL</li>
-              <li>Streamlit</li>
-              <li>Pandas</li>
-              <li>Plotly</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-  <footer>
-    <p>&copy; 2025 Airport Delay Analytics | Data Engineering Capstone</p>
-  </footer>
+    </div>
+</body>
