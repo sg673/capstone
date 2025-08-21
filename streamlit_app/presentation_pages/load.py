@@ -119,23 +119,8 @@ def pres_load():
         # Simulate CSV save
         col1, col2 = st.columns([2, 1])
         
-        with col1:
-            st.markdown("**Sample Output Data**")
-            st.dataframe(sample_data, use_container_width=True, height=200)
         
-        with col2:
-            st.markdown("**Load Metrics**")
-            render_load_metrics(sample_data, "CSV")
-        
-        # File structure
-        st.markdown("**Output File Structure**")
-        st.code("""
-data/output/
-├── merged_data_20241201_143022.csv
-├── delay_summary_20241201_143022.csv
-└── airport_stats_20241201_143022.csv
-        """)
-        
+
         # Benefits
         st.markdown("**CSV Loading Benefits:**")
         st.markdown("""
@@ -152,32 +137,8 @@ data/output/
         db_info = show_db_loader()
         st.code(db_info["code"], language='python')
         
-        # Simulate database load
-        col1, col2 = st.columns([2, 1])
         
-        with col1:
-            st.markdown("**Data to Load**")
-            st.dataframe(sample_data, use_container_width=True, height=200)
-        
-        with col2:
-            st.markdown("**Load Metrics**")
-            render_load_metrics(sample_data, "Database")
-        
-        # Database schema
-        st.markdown("**Database Schema**")
-        st.code("""
-CREATE TABLE airport_delays (
-    year INTEGER,
-    month INTEGER,
-    carrier VARCHAR(10),
-    carrier_name VARCHAR(100),
-    iata VARCHAR(10),
-    state VARCHAR(10),
-    arr_flights INTEGER,
-    total_ct INTEGER,
-    arr_flights_pct DECIMAL(5,2)
-);
-        """, language='sql')
+    
         
         # Benefits
         st.markdown("**Database Loading Benefits:**")

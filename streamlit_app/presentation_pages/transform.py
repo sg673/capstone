@@ -100,7 +100,6 @@ def simulate_transformer_steps(raw_data):
     # Step 3: Format columns
     step3 = step2.copy()
     step3.columns = step3.columns.str.lower().str.replace(" ", "_")
-    print(raw_data.head())
     # Step 4: Handle nulls (simulate critical cols)
     step4 = step3.copy()
     crit_cols = ['year', 'month', 'carrier', 'carrier_name',
@@ -141,16 +140,8 @@ def simulate_merge(delay_df, airport_df):
         .str[1].str.split(':').str[0]
 
     # Add demo delay columns for calculation
-    if 'carrier_delay' in merged.columns:
-        merged['weather_delay_ct'] = merged['carrier_delay'] * 0.5
-        merged['nas_delay_ct'] = merged['carrier_delay'] * 0.3
-        merged['carrier_delay_ct'] = merged['carrier_delay']
-
-        ct_cols = [col for col in merged.columns if col.endswith('_ct')]
-        merged['total_ct'] = merged[ct_cols].sum(axis=1)
-        merged['arr_flights'] = 1000  # Demo value
-        merged['arr_flights_pct'] = round(
-            (merged['total_ct'] / merged['arr_flights']) * 100, 2)
+    merged['arr_flights_pct'] = round(
+        (merged['arr_del15'] / merged['arr_flights']) * 100, 2)
 
     # Drop unnecessary columns
     drop_cols = ['airport_name', 'airport', 'name', 'city', 'country']

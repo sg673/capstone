@@ -6,6 +6,7 @@ from util import STATE_NAMES
 
 def graph_display(data: pd.DataFrame):
     ct_cols = [col for col in data.columns if col.endswith('_ct')]
+    delay_cols = ['carrier_delay', 'weather_delay', 'nas_delay', 'security_delay', 'late_aircraft_delay']
 
     # Filter controls
     col1, col2, col4 = st.columns(3)
@@ -27,7 +28,7 @@ def graph_display(data: pd.DataFrame):
 
     filtered_data = data[data['year'].isin(selected_years)]
 
-    agg_dict = {col: 'sum' for col in ct_cols}
+    agg_dict = {col: 'sum' for col in delay_cols + ct_cols}
     agg_dict['arr_flights'] = 'sum'
     grouped_data = filtered_data.groupby(group_by).agg(agg_dict).reset_index()
 
@@ -37,9 +38,13 @@ def graph_display(data: pd.DataFrame):
     else:
         display_col = group_by
 
+    grouped_data['total_delays_minutes'] = grouped_data[delay_cols].sum(axis=1)
     grouped_data['total_delays'] = grouped_data[ct_cols].sum(axis=1)
-    grouped_data['total_delays_pct'] = round(
-        (grouped_data['total_delays'] / grouped_data['arr_flights']) * 100, 2)
+
+    grouped_data['avg_delay_time'] = (grouped_data['total_delays_minutes']
+                                      / grouped_data['total_delays']).round(2)
+    
+
 
     for col in ct_cols:
         pct_col = col.replace('_ct', '_pct')
@@ -47,18 +52,18 @@ def graph_display(data: pd.DataFrame):
             (grouped_data[col] / grouped_data['arr_flights']) * 100, 2)
 
     ascending = sort_order == 'Ascending'
-    grouped_data = grouped_data.sort_values('total_delays_pct',
+    grouped_data = grouped_data.sort_values('avg_delay_time',
                                             ascending=ascending)
 
     years_str = ', '.join(map(str, selected_years))
     fig = px.bar(
         grouped_data.head(20),
         x=group_by,
-        y='total_delays_pct',
-        color='total_delays_pct',
-        title=f'Total Delays Percentage by {selected_group.title()} - '
+        y='avg_delay_time',
+        color='avg_delay_time',
+        title=f'Average Delay Time by {selected_group.title()} - '
         f'{years_str}',
-        labels={'total_delays_pct': 'Delay Percentage (%)'},
+        labels={'avg_delay_time': 'Average Delay Time (minutes)'},
         hover_name=display_col,
         color_continuous_scale="dense"
     )
