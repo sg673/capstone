@@ -20,7 +20,7 @@ class ColorPalette(Enum):
     ACCENT = "#f1e3dd"
 
 
-def navbar(data: pd.DataFrame):
+def navbar(data: pd.DataFrame, raw_data):
 
     with st.container(key="navbar-container", border=None):
         page = st.radio(
@@ -48,7 +48,7 @@ def navbar(data: pd.DataFrame):
         elif page == "Intro":
             pres_intro()
         elif page == "Extract":
-            pres_extract()
+            pres_extract(raw_data[1], raw_data[0])
         elif page == "Transform":
             pres_transform()
         elif page == "Load":

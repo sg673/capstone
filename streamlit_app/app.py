@@ -1,7 +1,7 @@
 import streamlit as st
 
 from navbar import navbar
-from util import get_data, AccessType
+from util import get_data, AccessType, get_raw_data
 
 
 def main():
@@ -10,9 +10,14 @@ def main():
     with open("styles.css") as f:
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
     data = get_data(AccessType.FILE)
+
+    raw_data = [get_raw_data("airports"), get_raw_data("Airline_Delay_Cause")]
+
+
+
     with st.container(key="title"):
         st.title("Sam's Capstone")
-    navbar(data)
+    navbar(data, raw_data)
 
 
 if __name__ == "__main__":

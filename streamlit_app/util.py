@@ -52,5 +52,13 @@ def get_data(access: AccessType = AccessType.DATABASE) -> pd.DataFrame:
         return df
 
 
+def get_raw_data(fileName) -> pd.DataFrame:
+    file = Path(os.getcwd()).parent / "etl_process" / "data" / "raw" / f"{fileName}.csv"
+    if not file.exists():
+        raise FileNotFoundError(f"file not found {file}")
+    df = pd.read_csv(file, encoding="latin-1", index_col=0)
+    return df
+
+
 if __name__ == "__main__":
     print(get_data(AccessType.FILE).head())

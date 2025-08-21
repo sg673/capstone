@@ -90,7 +90,6 @@ div[role=radiogroup] input:checked + div {
     background-color: var(--primary);
 }
 
-
 /* Following styles are AI made */
 * {
     box-sizing: border-box;
