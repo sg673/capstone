@@ -5,6 +5,13 @@ import streamlit as st
 from nav_pages.graph import graph_display
 from nav_pages.map import map_display
 
+from presentation_pages.intro import pres_intro
+from presentation_pages.extract import pres_extract
+from presentation_pages.transform import pres_transform
+from presentation_pages.load import pres_load
+from presentation_pages.visual import pres_visual
+from presentation_pages.conc import pres_conc
+
 
 class ColorPalette(Enum):
     BACKGROUND = "#bccad6"
@@ -18,7 +25,15 @@ def navbar(data: pd.DataFrame):
     with st.container(key="navbar-container", border=None):
         page = st.radio(
             "Navigation",
-            ["Home", "Graph", "Map"],
+            ["Home",
+             "Intro",
+             "Extract",
+             "Transform",
+             "Load",
+             "Visualise",
+             "Graph",
+             "Map",
+             "Conclusion"],
             horizontal=True,
             label_visibility="collapsed"
         )
@@ -30,3 +45,15 @@ def navbar(data: pd.DataFrame):
             graph_display(data)
         elif page == "Map":
             map_display(data)
+        elif page == "Intro":
+            pres_intro()
+        elif page == "Extract":
+            pres_extract()
+        elif page == "Transform":
+            pres_transform()
+        elif page == "Load":
+            pres_load()
+        elif page == "Visualise":
+            pres_visual()
+        elif page == "Conclusion":
+            pres_conc()

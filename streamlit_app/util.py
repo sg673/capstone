@@ -52,6 +52,5 @@ def get_data(access: AccessType = AccessType.DATABASE) -> pd.DataFrame:
         return df
 
 
-
 if __name__ == "__main__":
-    print(get_data().shape)
+    print(get_data(AccessType.FILE).head())
