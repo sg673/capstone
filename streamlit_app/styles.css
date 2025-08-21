@@ -231,6 +231,7 @@ ul, ol {
 li {
     margin: 0.6rem 0;
     position: relative;
+    list-style-type: none;
 }
 
 ul li::before {

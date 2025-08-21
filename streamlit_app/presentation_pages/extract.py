@@ -94,30 +94,29 @@ def pres_extract(delay_df=None, airport_df=None):
       <h1>Extract Phase</h1>
       <h2>Data Collection and Initial Processing</h2>
     </header>
+    <h1>Raw Data Samples</h1>
     """, unsafe_allow_html=True)
-    with st.expander("Raw Data"):
-        st.markdown("<h2>Raw Data Samples</h2>", unsafe_allow_html=True)
 
-        # Airline Delay Data
-        st.markdown("<h3>Airline Delay Cause Data</h3>",
+    # Airline Delay Data
+    st.markdown("<h3>Airline Delay Cause Data</h3>",
+                unsafe_allow_html=True)
+    if delay_df is not None:
+        st.markdown(f"<b>Shape:</b> {delay_df.shape[0]} rows x "
+                    f"{delay_df.shape[1]} columns",
                     unsafe_allow_html=True)
-        if delay_df is not None:
-            st.markdown(f"<b>Shape:</b> {delay_df.shape[0]} rows x "
-                        f"{delay_df.shape[1]} columns",
-                        unsafe_allow_html=True)
-            render_dataframe(delay_df)
-        else:
-            st.warning("Airline delay data not available.")
+        render_dataframe(delay_df)
+    else:
+        st.warning("Airline delay data not available.")
 
-        st.markdown("---")
+    st.markdown("---")
 
-        # Airport Data
-        st.markdown("<h3>Airport Information Data</h3>",
+    # Airport Data
+    st.markdown("<h3>Airport Information Data</h3>",
+                unsafe_allow_html=True)
+    if airport_df is not None:
+        st.markdown(f"<b>Shape:</b> {airport_df.shape[0]} rows x "
+                    f"{airport_df.shape[1]} columns",
                     unsafe_allow_html=True)
-        if airport_df is not None:
-            st.markdown(f"<b>Shape:</b> {airport_df.shape[0]} rows x "
-                        f"{airport_df.shape[1]} columns",
-                        unsafe_allow_html=True)
-            render_dataframe(airport_df)
-        else:
-            st.warning("Airport data not available.")
+        render_dataframe(airport_df)
+    else:
+        st.warning("Airport data not available.")
