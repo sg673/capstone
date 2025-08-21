@@ -1,0 +1,126 @@
+<style>
+  .load-strategy {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+  }
+
+  .strategy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+  }
+
+  .strategy-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+  }
+
+  .strategy-card h3 {
+    margin-top: 0;
+    color: #fff;
+    font-size: 1.3rem;
+  }
+
+  .strategy-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .strategy-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .strategy-list li:last-child {
+    border-bottom: none;
+  }
+
+  .summary-section {
+    background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin: 2rem 0;
+  }
+
+  .achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .achievement-card {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+  }
+
+  .achievement-card h4 {
+    margin-top: 0;
+    font-size: 1.2rem;
+    color: #fff;
+  }
+
+  .achievement-card p {
+    margin-bottom: 0;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .strategy-grid,
+    .achievements-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<div class="load-strategy">
+  <h2>Load Strategy</h2>
+  <div class="strategy-grid">
+    <div class="strategy-card">
+      <h3>Development Environment</h3>
+      <ul class="strategy-list">
+        <li>Save to CSV files in <code>data/output/</code></li>
+        <li>No database connection required</li>
+        <li>Files timestamped for versioning</li>
+        <li>Easy debugging and inspection</li>
+      </ul>
+    </div>
+    <div class="strategy-card">
+      <h3>Production Environment</h3>
+      <ul class="strategy-list">
+        <li>Load to PostgreSQL database</li>
+        <li>Replace existing tables</li>
+        <li>Maintain data integrity</li>
+        <li>Log all operations</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="summary-section">
+  <h2>Load Phase Summary</h2>
+  <p>Key achievements and capabilities</p>
+  <div class="achievements-grid">
+    <div class="achievement-card">
+      <h4>Dual Storage</h4>
+      <p>Flexible output supporting both file-based and database storage systems</p>
+    </div>
+    <div class="achievement-card">
+      <h4>Performance</h4>
+      <p>Optimized batch processing with error handling and recovery mechanisms</p>
+    </div>
+    <div class="achievement-card">
+      <h4>Scalability</h4>
+      <p>Environment-aware loading strategy that scales from development to production</p>
+    </div>
+  </div>
+</div>
