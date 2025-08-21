@@ -5,39 +5,39 @@
             line-height: 1.6;
             margin: 0;
             padding: 20px;
-            background: linear-gradient(135deg, #8d9db6 0%, #667292 100%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: #333;
             min-height: 100vh;
         }
         .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--accent);
+            padding: 2rem;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin: 2rem 0;
         }
         h1 {
-            color: #667292;
+            color: var(--accent);
             text-align: center;
             margin-bottom: 30px;
             font-size: 2.5em;
-            border-bottom: 3px solid #667292;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.3);
             padding-bottom: 10px;
         }
         h2 {
-            color: #667292;
+            color:var(--accent);
             margin-top: 30px;
             font-size: 1.8em;
-            border-left: 4px solid #8d9db6;
+            border-left: 4px solid rgba(255, 255, 255, 0.3);
             padding-left: 15px;
         }
         .key-findings {
-            background: #f1e3dd;
+            background: rgba(255, 255, 255, 0.1);
             padding: 20px;
             border-radius: 10px;
             margin: 20px 0;
-            border-left: 5px solid #667292;
+            border-left: 5px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
         }
         .achievements {
             display: grid;
@@ -46,20 +46,22 @@
             margin: 20px 0;
         }
         .achievement-card {
-            background: #bccad6;
+            background: rgba(255, 255, 255, 0.15);
             padding: 20px;
             border-radius: 10px;
-            border: 1px solid #8d9db6;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
         }
         .achievement-card h3 {
-            color: #667292;
+            color: #f1e3dd;
             margin-top: 0;
         }
         .future-work {
-            background: #f1e3dd;
+            background: rgba(255, 255, 255, 0.1);
             padding: 20px;
             border-radius: 10px;
-            border-left: 5px solid #8d9db6;
+            border-left: 5px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
         }
         ul {
             padding-left: 20px;
@@ -68,7 +70,7 @@
             margin-bottom: 8px;
         }
         .highlight {
-            background: #f1e3dd;
+            background: rgba(255, 255, 255, 0.2);
             padding: 2px 6px;
             border-radius: 3px;
             font-weight: bold;
@@ -77,8 +79,8 @@
             text-align: center;
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 2px solid #bccad6;
-            color: #8d9db6;
+            border-top: 2px solid rgba(255, 255, 255, 0.3);
+            color:var(--accent);
         }
     </style>
 </head>
