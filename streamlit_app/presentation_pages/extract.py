@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import os
 
 
 # ✅ CSS (only once, at the start of your app)
@@ -100,9 +99,12 @@ def pres_extract(delay_df=None, airport_df=None):
         st.markdown("<h2>Raw Data Samples</h2>", unsafe_allow_html=True)
 
         # Airline Delay Data
-        st.markdown("<h3>Airline Delay Cause Data</h3>", unsafe_allow_html=True)
+        st.markdown("<h3>Airline Delay Cause Data</h3>",
+                    unsafe_allow_html=True)
         if delay_df is not None:
-            st.markdown(f"<b>Shape:</b> {delay_df.shape[0]} rows × {delay_df.shape[1]} columns", unsafe_allow_html=True)
+            st.markdown(f"<b>Shape:</b> {delay_df.shape[0]} rows x "
+                        f"{delay_df.shape[1]} columns",
+                        unsafe_allow_html=True)
             render_dataframe(delay_df)
         else:
             st.warning("Airline delay data not available.")
@@ -110,9 +112,12 @@ def pres_extract(delay_df=None, airport_df=None):
         st.markdown("---")
 
         # Airport Data
-        st.markdown("<h3>Airport Information Data</h3>", unsafe_allow_html=True)
+        st.markdown("<h3>Airport Information Data</h3>",
+                    unsafe_allow_html=True)
         if airport_df is not None:
-            st.markdown(f"<b>Shape:</b> {airport_df.shape[0]} rows × {airport_df.shape[1]} columns", unsafe_allow_html=True)
+            st.markdown(f"<b>Shape:</b> {airport_df.shape[0]} rows x "
+                        f"{airport_df.shape[1]} columns",
+                        unsafe_allow_html=True)
             render_dataframe(airport_df)
         else:
             st.warning("Airport data not available.")
